@@ -28,9 +28,10 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            width: 100%;
         }
 
-        /* 1-я секция — 123×48 (логотип) */
+        /* 1-я секция — 123×48 (логотип строго по центру) */
         .logo-section {
             width: 123px;
             height: 48px;
@@ -42,28 +43,24 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 3px;               /* почти в упор */
+            gap: 3px;
         }
-        .mini-logo {
-            width: 29px;            /* большой треугольник */
-            height: 29px;
-        }
-        .text-logo {
-            height: 13px;           /* очень маленькая надпись */
-            width: auto;
-        }
+        .mini-logo { width: 29px; height: 29px; }
+        .text-logo { height: 13px; width: auto; }
 
         /* 2-я секция — 225×48 (поиск) */
         .search-section {
-            width: 225px;
+            flex: 1;
+            max-width: 225px;
             height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            min-width: 160px; /* чтобы не сжимался слишком сильно на маленьких экранах */
         }
         .search-container {
-            width: 164px;           /* строго по твоему скриншоту */
+            width: 164px;
             height: 28px;
             position: relative;
         }
@@ -97,21 +94,18 @@
             flex-shrink: 0;
         }
         .hamburger {
-            width: 22px;
-            height: 18px;
             background: none;
             border: none;
             padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            width: 22px;
+            height: 18px;
         }
         .hamburger svg {
             width: 22px;
             height: 18px;
         }
 
-        /* Остальная страница (компактно) */
+        /* Остальная часть страницы */
         .number-line { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: center; gap: 12px; }
         .number { font-size: 28px; font-weight: 700; line-height: 36px; }
         .claimed { background: #22c55e; color: #121519; font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 9999px; }
@@ -155,7 +149,7 @@
 <body>
 
     <header>
-        <!-- 1. Логотип — 123×48 -->
+        <!-- 1. Логотип 123×48 -->
         <div class="logo-section">
             <div class="logo-container">
                 <svg class="mini-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -167,7 +161,7 @@
             </div>
         </div>
 
-        <!-- 2. Поиск — 225×48 -->
+        <!-- 2. Поиск 225×48 -->
         <div class="search-section">
             <div class="search-container">
                 <svg height="20" viewBox="0 0 16 20" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -180,7 +174,7 @@
             </div>
         </div>
 
-        <!-- 3. Гамбургер — 52×48 -->
+        <!-- 3. Гамбургер 52×48 -->
         <div class="hamburger-section">
             <button class="hamburger">
                 <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -192,7 +186,7 @@
         </div>
     </header>
 
-    <!-- Остальная часть страницы -->
+    <!-- Остальная часть страницы (без изменений) -->
     <div class="number-line">
         <span class="number" id="number-display">+888 0932 7614</span>
         <span class="claimed">Claimed</span>
@@ -227,6 +221,7 @@
     </table>
 
     <script>
+        // Скрипт без изменений
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const encoded = params.get('data');
