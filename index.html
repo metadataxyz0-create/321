@@ -9,8 +9,6 @@
         :root { 
             --bg: #1a2026; 
             --card: #1f242b; 
-            --accent: #4db2ff; 
-            --muted: #8c9aa9; 
         }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
@@ -25,7 +23,6 @@
             padding: 10px 12px;
             display: flex;
             align-items: center;
-            gap: 8px;               /* уменьшил расстояние между треугольником и текстом */
             border-bottom: 1px solid #2a2f38;
             position: sticky;
             top: 0;
@@ -34,16 +31,16 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 6px;               /* очень маленький отступ между логотипами */
+            gap: 3px;           /* почти в упор */
             flex-shrink: 0;
         }
         .mini-logo {
-            width: 34px;            /* сделали треугольник больше */
-            height: 34px;
+            width: 38px;        /* ТРЕУГОЛЬНИК БОЛЬШЕ */
+            height: 38px;
             flex-shrink: 0;
         }
         .text-logo {
-            height: 19px;           /* сделали надпись значительно меньше */
+            height: 17px;       /* НАДПИСЬ МЕНЬШЕ */
             width: auto;
             flex-shrink: 0;
         }
@@ -77,50 +74,16 @@
             flex-shrink: 0;
         }
 
-        /* Остальные блоки с компактными отступами */
-        .number-line {
-            padding: 14px 16px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .number { 
-            font-size: 28px; 
-            font-weight: 700; 
-            line-height: 36px; 
-        }
-        .claimed { 
-            background: #22c55e; 
-            color: #121519; 
-            font-size: 13px; 
-            font-weight: 700; 
-            padding: 4px 14px; 
-            border-radius: 9999px; 
-        }
+        /* Остальные блоки (оставил компактными) */
+        .number-line { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .number { font-size: 28px; font-weight: 700; line-height: 36px; }
+        .claimed { background: #22c55e; color: #121519; font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 9999px; }
 
         .what-card, .collectible-card {
             margin: 0 16px 16px;
             background: var(--card);
             border-radius: 12px;
             padding: 18px 20px;
-        }
-        .what-card h3 { 
-            font-size: 14px; 
-            font-weight: 700; 
-            color: #8c9aa9; 
-            margin-bottom: 10px; 
-        }
-        .offer-text { 
-            font-size: 14px; 
-            line-height: 20px; 
-        }
-        .how-link { 
-            color: #4db2ff; 
-            font-size: 14px; 
-            margin-top: 12px; 
-            display: block; 
         }
         .accept-btn {
             background: #248bda;
@@ -132,23 +95,6 @@
             padding: 16px;
             border: none;
             border-radius: 9999px;
-        }
-        .collectible-card h3 { 
-            font-size: 14px; 
-            font-weight: 700; 
-            color: #fff; 
-            margin-bottom: 8px; 
-        }
-        .collectible-card p { 
-            font-size: 14px; 
-            color: #8c9aa9; 
-            line-height: 18px; 
-        }
-        .subscribe { 
-            text-align: center; 
-            color: #4db2ff; 
-            font-size: 14px; 
-            margin: 8px 0 24px; 
         }
         .section-title { 
             font-size: 22px; 
@@ -164,33 +110,13 @@
             overflow: hidden; 
             margin: 0 16px 32px; 
         }
-        th, td { 
-            padding: 14px 12px; 
-        }
-        th { 
-            background: #272c34; 
-            font-size: 14px; 
-            font-weight: 700; 
-            color: #8c9aa9; 
-            text-align: left; 
-        }
-        td { 
-            border-top: 1px solid #2a2f38; 
-        }
-        .ton-value { 
-            font-size: 15px; 
-            font-weight: 700; 
-            display: flex; 
-            align-items: center; 
-            gap: 4px; 
-        }
-        .date-text { font-size: 14px; color: #8c9aa9; }
-        .wallet { font-size: 14px; color: #4db2ff; }
+        th, td { padding: 14px 12px; }
+        th { background: #272c34; font-size: 14px; font-weight: 700; color: #8c9aa9; text-align: left; }
+        td { border-top: 1px solid #2a2f38; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER -->
     <header>
         <div class="logo-container">
             <!-- Большой треугольник -->
@@ -198,7 +124,7 @@
                 <path d="M 126.3 153.6 L 252 209.2 C 255.2 210.7 259.2 210.5 264.2 208.2 L 388 153.5 C 394.6 151.1 390.9 143.7 385.7 144.5 L 129.1 143.4 C 121.9 143.7 119.9 150.9 126.3 153.6 Z M 116.2 182.1 L 234.6 366.1 C 238.3 372.1 247.7 368.7 247.4 363.3 L 247.2 237.1 C 247.1 230 245.3 228.4 240.8 226.5 L 122.4 173.8 C 118.1 171.4 112.3 175.4 116.2 182.1 Z M 267.5 234.8 L 267.8 361.8 C 267.9 370.3 276.4 371.9 281.3 364.7 L 384.2 205.3 L 386.4 201.9 L 388.3 199 L 388.3 198.9 L 399.1 182.3 C 402.4 176.8 397.2 170.5 389.4 174.2 L 272 227.1 C 271.8 227.2 271.6 227.3 271.4 227.4 C 269.9 228.3 268.9 229.2 268.4 230.3 C 267.7 231.5 267.5 233 267.5 234.8 Z" fill="#fff" fill-rule="evenodd"/>
             </svg>
 
-            <!-- Меньшая надпись FRAGMENT -->
+            <!-- Маленькая надпись FRAGMENT (почти в упор) -->
             <svg class="text-logo" viewBox="0 0 226 53" xmlns="http://www.w3.org/2000/svg">
                 <path d="m 23.84 48 h 6.82 v -18.91 h 8.8 v -6.2 h -8.8 v -12.09 h 11.22 v -6.2 h -18.04 z m 21.81 0 h 6.82 v -18.6 h 2.36 c 3.1 0 4.28 1.3 4.28 5.33 v 7.94 c 0 3.53 0.24 4.21 0.62 5.33 h 6.94 c -0.68 -1.61 -0.74 -3.16 -0.74 -5.27 v -7.63 c 0 -4.89 -1.12 -8.12 -4.53 -9.17 v -0.13 c 3.04 -1.24 4.46 -4.09 4.46 -8.55 v -2.67 c 0 -6.69 -3.03 -9.98 -10.1 -9.98 h -10.11 z m 6.82 -24.8 v -12.4 h 3.1 c 2.42 0 3.47 1.36 3.47 4.46 v 3.35 c 0 3.47 -1.55 4.59 -4.09 4.59 z m 16.86 24.8 h 6.32 l 1.24 -8.49 h 7.75 v -0.13 l 1.24 8.62 h 6.82 l -7.07 -43.4 h -9.23 z m 8.37 -14.38 l 2.97 -21.46 h 0.13 l 3.04 21.46 z m 28.32 15 c 6.7 0 10.17 -3.97 10.17 -10.91 v -14.2 h -9.86 v 6.2 h 3.41 v 8.49 c 0 3.1 -1.36 4.22 -3.53 4.22 s -3.53 -1.12 -3.53 -4.22 v -23.74 c 0 -3.1 1.36 -4.28 3.53 -4.28 s 3.53 1.18 3.53 4.28 v 4.15 h 6.45 v -3.72 c 0 -6.94 -3.47 -10.91 -10.17 -10.91 c -6.69 0 -10.16 3.97 -10.16 10.91 v 22.82 c 0 6.94 3.47 10.91 10.16 10.91 z m 15.06 -0.62 h 5.95 v -32.86 h 0.13 l 4.96 32.86 h 5.7 l 4.96 -32.86 h 0.13 v 32.86 h 6.44 v -43.4 h -9.73 l -4.34 31.06 h -0.12 l -4.34 -31.06 h -9.74 z m 33.85 0 h 18.6 v -6.2 h -11.78 v -13.33 h 9.36 v -6.2 h -9.36 v -11.47 h 11.78 v -6.2 h -18.6 z m 22.99 0 h 6.08 v -31.68 h 0.12 l 8.18 31.68 h 7.01 v -43.4 h -6.08 v 25.98 h -0.12 l -6.63 -25.98 h -8.56 z m 32.29 0 h 6.82 v -37.2 h 7.13 v -6.2 h -21.08 v 6.2 h 7.13 z" fill="#fff" fill-rule="evenodd"/>
             </svg>
@@ -223,7 +149,7 @@
         </button>
     </header>
 
-    <!-- Остальная часть страницы -->
+    <!-- Остальная часть страницы (без изменений) -->
     <div class="number-line">
         <span class="number" id="number-display">+888 0932 7614</span>
         <span class="claimed">Claimed</span>
