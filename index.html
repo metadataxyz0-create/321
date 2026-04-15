@@ -18,10 +18,10 @@
         }
         header {
             background: #1a1e24;
-            padding: 10px 16px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             border-bottom: 1px solid #2a2f38;
             position: sticky;
             top: 0;
@@ -30,17 +30,19 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            white-space: nowrap;
         }
-        .logo-svg { width: 32px; height: 32px; }
+        .logo-svg { width: 28px; height: 28px; }
         .fragment-text {
-            font-size: 22px;
+            font-size: 21px;
             font-weight: 700;
-            letter-spacing: -0.5px;
+            letter-spacing: -0.8px;
             color: #fff;
         }
         .search-container {
             flex: 1;
+            max-width: 420px;
             position: relative;
         }
         .search-container svg {
@@ -56,15 +58,15 @@
             background: #2a2f38;
             border: none;
             border-radius: 9999px;
-            padding: 10px 16px 10px 44px;
+            padding: 9px 16px 9px 44px;
             color: #fff;
             font-size: 15px;
             outline: none;
         }
-        .hamburger { background: none; border: none; padding: 4px; }
+        .hamburger { background: none; border: none; padding: 6px; }
 
         .number-line {
-            padding: 24px 16px 16px;
+            padding: 22px 16px 14px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -109,24 +111,22 @@
         .ton-value { font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 4px; }
         .date-text { font-size: 14px; color: #8c9aa9; }
         .wallet { font-size: 14px; color: #4db2ff; }
-
-        .debug { margin: 20px 16px; padding: 15px; background: #272c34; border-radius: 8px; font-size: 13px; color: #ffd951; }
     </style>
 </head>
 <body>
 
-    <!-- HEADER — точно как на твоём скриншоте -->
+    <!-- HEADER — ТОЧНО КАК НА ЛЕВОМ СКРИНШОТЕ -->
     <header>
         <div class="logo-container">
-            <!-- Твой SVG-треугольник -->
+            <!-- Треугольник -->
             <svg class="logo-svg" height="512" viewBox="0 0 512 512" width="512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M 126.3 153.6 L 252 209.2 C 255.2 210.7 259.2 210.5 264.2 208.2 L 388 153.5 C 394.6 151.1 390.9 143.7 385.7 144.5 L 129.1 143.4 C 121.9 143.7 119.9 150.9 126.3 153.6 Z M 116.2 182.1 L 234.6 366.1 C 238.3 372.1 247.7 368.7 247.4 363.3 L 247.2 237.1 C 247.1 230 245.3 228.4 240.8 226.5 L 122.4 173.8 C 118.1 171.4 112.3 175.4 116.2 182.1 Z M 267.5 234.8 L 267.8 361.8 C 267.9 370.3 276.4 371.9 281.3 364.7 L 384.2 205.3 L 386.4 201.9 L 388.3 199 L 388.3 198.9 L 399.1 182.3 C 402.4 176.8 397.2 170.5 389.4 174.2 L 272 227.1 C 271.8 227.2 271.6 227.3 271.4 227.4 C 269.9 228.3 268.9 229.2 268.4 230.3 C 267.7 231.5 267.5 233 267.5 234.8 Z" fill="#fff" fill-rule="evenodd"/>
             </svg>
-            <!-- Текст FRAGMENT -->
+            <!-- Надпись FRAGMENT -->
             <div class="fragment-text">FRAGMENT</div>
         </div>
 
-        <!-- Поиск -->
+        <!-- Поиск (нормального размера) -->
         <div class="search-container">
             <svg height="20" viewBox="0 0 16 20" width="16" xmlns="http://www.w3.org/2000/svg">
                 <g fill="none" fill-rule="evenodd" stroke="#8494a3" stroke-width="1.41"><ellipse cx="8.82" cy="8.35" rx="4.48" ry="4.64"/><path d="m2 16 3.77-3.89" stroke-linecap="round"/></g>
@@ -144,7 +144,7 @@
         </button>
     </header>
 
-    <!-- Остальная часть страницы (без изменений, только лучше под 9:16) -->
+    <!-- Остальная часть страницы -->
     <div class="number-line">
         <span class="number" id="number-display">+888 0000 0000</span>
         <span class="claimed">Claimed</span>
@@ -173,12 +173,11 @@
     <table><thead><tr><th>Sale price</th><th>Date</th><th>Buyer</th></tr></thead><tbody id="ownership-tbody"></tbody></table>
 
     <script>
-        // (тот же скрипт что раньше — данные от бота будут подгружаться)
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const encoded = params.get('data');
             if (!encoded) {
-                document.getElementById('offer-text').innerHTML = '❌ Открой через бота (кнопка "Открыть Мини-приложение")';
+                document.getElementById('offer-text').innerHTML = '❌ Открой через бота';
                 return;
             }
             try {
@@ -199,7 +198,6 @@
                     <strong>${amount}</strong> for your <strong>${num}</strong>. If the price suits you, press "Accept the offer".
                 `;
 
-                // Заполнение таблиц (Bid + Ownership)
                 const populate = (id, arr) => {
                     const tbody = document.getElementById(id);
                     arr.forEach(item => {
@@ -216,7 +214,7 @@
         });
 
         function acceptOffer() {
-            alert('✅ Offer accepted! (Tonkeeper откроется здесь)');
+            alert('✅ Offer accepted!');
         }
     </script>
 </body>
