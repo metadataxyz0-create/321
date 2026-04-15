@@ -66,15 +66,14 @@
             transform: translateY(-50%);
             width: 16px;
             height: 16px;
-            z-index: 2;
         }
         .search {
             width: 100%;
             height: 100%;
             background: #2a2f38;
             border: none;
-            border-radius: 6px;           /* слабо скруглённые углы */
-            padding: 6px 12px 6px 32px;  /* точно по инспектору */
+            border-radius: 6px;
+            padding: 6px 12px 6px 32px;
             color: #fff;
             font-size: 14px;
             outline: none;
@@ -101,11 +100,38 @@
             height: 18px;
         }
 
-        /* Остальная часть страницы */
-        .number-line { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: center; gap: 12px; }
-        .number { font-size: 28px; font-weight: 700; line-height: 36px; }
-        .claimed { background: #22c55e; color: #121519; font-size: 13px; font-weight: 700; padding: 4px 14px; border-radius: 9999px; }
+        /* ====================== НОВЫЙ БЛОК С НОМЕРОМ ====================== */
+        .number-line {
+            padding: 14px 16px 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .number {
+            font-size: 22px;           /* точно по инспектору */
+            font-weight: 700;
+            color: #FFFFFF;
+            line-height: 28px;
+        }
+        .claimed {
+            /* Настройки точно как у "On auction" */
+            background: #5AEC8C1A;     /* прозрачный зелёный фон */
+            color: #5AEC8C;            /* ярко-зелёный текст */
+            font-size: 11px;
+            font-weight: 700;
+            padding: 3px 6px;          /* padding из инспектора */
+            margin: 5px 6px 1px;       /* margin из инспектора */
+            border-radius: 9999px;     /* pill-эффект */
+            line-height: 1;
+            white-space: nowrap;
+            display: inline-flex;
+            align-items: center;
+            height: 22px;              /* высота как у оригинальной плашки */
+        }
 
+        /* Остальная часть страницы */
         .what-card, .collectible-card {
             margin: 0 16px 16px;
             background: var(--card);
@@ -182,12 +208,13 @@
         </div>
     </header>
 
-    <!-- Остальная часть страницы -->
+    <!-- Номер + Claimed (обновлённая плашка) -->
     <div class="number-line">
         <span class="number" id="number-display">+888 0932 7614</span>
         <span class="claimed">Claimed</span>
     </div>
 
+    <!-- Остальная часть страницы -->
     <div class="what-card">
         <h3>What is this?</h3>
         <p class="offer-text" id="offer-text">Загрузка данных от бота...</p>
@@ -217,7 +244,6 @@
     </table>
 
     <script>
-        // Скрипт без изменений
         document.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             const encoded = params.get('data');
