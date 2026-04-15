@@ -31,7 +31,7 @@
             width: 100%;
         }
 
-        /* 1-я секция — логотип 123×48 */
+        /* 1-я секция — логотип */
         .logo-section {
             width: 123px;
             height: 48px;
@@ -44,7 +44,7 @@
         .mini-logo { width: 29px; height: 29px; }
         .text-logo { height: 13px; width: auto; }
 
-        /* 2-я секция — поиск 225×48 */
+        /* 2-я секция — поиск */
         .search-section {
             flex: 1;
             max-width: 225px;
@@ -79,7 +79,7 @@
             outline: none;
         }
 
-        /* 3-я секция — гамбургер 52×48 */
+        /* 3-я секция — гамбургер */
         .hamburger-section {
             width: 52px;
             height: 48px;
@@ -88,47 +88,39 @@
             justify-content: center;
             flex-shrink: 0;
         }
-        .hamburger {
-            background: none;
-            border: none;
-            padding: 0;
-            width: 22px;
-            height: 18px;
-        }
-        .hamburger svg {
-            width: 22px;
-            height: 18px;
-        }
+        .hamburger { background: none; border: none; padding: 0; width: 22px; height: 18px; }
+        .hamburger svg { width: 22px; height: 18px; }
 
-        /* ====================== НОВЫЙ БЛОК С НОМЕРОМ ====================== */
+        /* ====================== НОМЕР + CLAIMED ====================== */
         .number-line {
+            background: #121519;           /* тёмный фон, чтобы была видна прозрачность */
             padding: 14px 16px 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
-            flex-wrap: wrap;
+            gap: 10px;
         }
         .number {
-            font-size: 22px;           /* точно по инспектору */
+            font-size: 22px;
             font-weight: 700;
             color: #FFFFFF;
             line-height: 28px;
         }
         .claimed {
-            /* Настройки точно как у "On auction" */
-            background: #5AEC8C1A;     /* прозрачный зелёный фон */
-            color: #5AEC8C;            /* ярко-зелёный текст */
+            /* ТОЧНО КАК У "On auction" + эффект прозрачности */
+            background: rgba(90, 236, 140, 0.18);   /* полупрозрачный зелёный */
+            color: #5AEC8C;
             font-size: 11px;
             font-weight: 700;
-            padding: 3px 6px;          /* padding из инспектора */
-            margin: 5px 6px 1px;       /* margin из инспектора */
-            border-radius: 9999px;     /* pill-эффект */
+            padding: 3px 6px;
+            margin: 5px 6px 1px;
+            border-radius: 9999px;
             line-height: 1;
             white-space: nowrap;
             display: inline-flex;
             align-items: center;
-            height: 22px;              /* высота как у оригинальной плашки */
+            height: 22px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* лёгкая тень для объёма */
         }
 
         /* Остальная часть страницы */
@@ -171,7 +163,7 @@
 <body>
 
     <header>
-        <!-- 1. Логотип 123×48 -->
+        <!-- Логотип -->
         <div class="logo-section">
             <div class="logo-container">
                 <svg class="mini-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -183,7 +175,7 @@
             </div>
         </div>
 
-        <!-- 2. Поиск 225×48 -->
+        <!-- Поиск -->
         <div class="search-section">
             <div class="search-container">
                 <svg height="20" viewBox="0 0 16 20" width="16" xmlns="http://www.w3.org/2000/svg">
@@ -196,7 +188,7 @@
             </div>
         </div>
 
-        <!-- 3. Гамбургер 52×48 -->
+        <!-- Гамбургер -->
         <div class="hamburger-section">
             <button class="hamburger">
                 <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -208,7 +200,7 @@
         </div>
     </header>
 
-    <!-- Номер + Claimed (обновлённая плашка) -->
+    <!-- Номер + Claimed с прозрачностью -->
     <div class="number-line">
         <span class="number" id="number-display">+888 0932 7614</span>
         <span class="claimed">Claimed</span>
