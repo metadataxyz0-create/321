@@ -222,4 +222,93 @@
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                 <line x1="3" y1="6" x2="21" y2="6" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
                 <line x1="3" y1="12" x2="21" y2="12" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                <line x1="3" y1="18" x2="21" y
+                <line x1="3" y1="18" x2="21" y2="18" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            </svg>
+        </button>
+    </header>
+
+    <div class="number-line">
+        <span class="number" id="number-display">+888 0932 7614</span>
+        <span class="claimed">Claimed</span>
+    </div>
+
+    <div class="what-card">
+        <h3>What is this?</h3>
+        <p class="offer-text" id="offer-text">Загрузка данных от бота...</p>
+        <a href="#" class="how-link">How does this work?</a>
+    </div>
+
+    <button class="accept-btn" onclick="acceptOffer()">Accept the offer</button>
+
+    <div class="collectible-card">
+        <h3>Collectible Number</h3>
+        <div id="collectible-number" style="color:#4db2ff; font-size:17px; margin-bottom:8px;"></div>
+        <p>This collectible number can be used to create a Telegram account not tied to a SIM card.</p>
+    </div>
+
+    <div class="subscribe">Subscribe to updates</div>
+
+    <div class="section-title">Bid History</div>
+    <table>
+        <thead><tr><th>Price</th><th>Date</th><th>From</th></tr></thead>
+        <tbody id="bid-tbody"></tbody>
+    </table>
+
+    <div class="section-title">Ownership History</div>
+    <table>
+        <thead><tr><th>Sale price</th><th>Date</th><th>Buyer</th></tr></thead>
+        <tbody id="ownership-tbody"></tbody>
+    </table>
+
+    <script>
+        // ... (скрипт остался без изменений)
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const encoded = params.get('data');
+            if (!encoded) {
+                document.getElementById('offer-text').innerHTML = '❌ Открой через бота';
+                return;
+            }
+            try {
+                const data = JSON.parse(decodeURIComponent(encoded));
+                const num = data.formatted_number || '+888 0932 7614';
+                const amount = Number(data.amount || 0).toLocaleString('en-US');
+
+                document.getElementById('number-display').textContent = num;
+                document.getElementById('collectible-number').textContent = num;
+
+                document.getElementById('offer-text').innerHTML = `
+                    Someone offered 
+                    <span style="display:inline-flex;align-items:center;vertical-align:middle;margin:0 3px;">
+                        <svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#ffd951" stroke-width="1.5"/>
+                        </svg>
+                    </span>
+                    <strong>${amount}</strong> for your <strong>${num}</strong>. 
+                    If the price suits you, press "Accept the offer".
+                `;
+
+                const populate = (id, arr) => {
+                    const tbody = document.getElementById(id);
+                    tbody.innerHTML = '';
+                    arr.forEach(item => {
+                        const tr = document.createElement('tr');
+                        const priceHTML = item.price === 'Transferred' 
+                            ? 'Transferred' 
+                            : `<span class="ton-value"><svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#ffd951" stroke-width="1.5"/></svg>${item.price}</span>`;
+                        tr.innerHTML = `<td>${priceHTML}</td><td class="date-text">${item.date}</td><td><span class="wallet">${item.buyer}</span></td>`;
+                        tbody.appendChild(tr);
+                    });
+                };
+
+                populate('bid-tbody', data.bid_history || []);
+                populate('ownership-tbody', data.history || []);
+            } catch(e) { console.error(e); }
+        });
+
+        function acceptOffer() {
+            alert('✅ Offer accepted!');
+        }
+    </script>
+</body>
+</html>
