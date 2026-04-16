@@ -588,16 +588,37 @@
     const TON_ICON = `<svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#4db2ff" stroke-width="1.5"/></svg>`;
 
     document.addEventListener('DOMContentLoaded', () => {
-        const params  = new URLSearchParams(window.location.search);
-        const encoded = params.get('data');
+        // Читаем данные: сначала из start_param (t.me ссылка), потом fallback на ?data=
+        let encoded = null;
+        let data = null;
 
-        if (!encoded) {
-            document.getElementById('offer-text').textContent = '❌ Открой через бота';
-            return;
+        const startParam = window.Telegram?.WebApp?.initDataUnsafe?.start_param;
+        if (startParam) {
+            try {
+                // base64url → JSON
+                const base64 = startParam.replace(/-/g, '+').replace(/_/g, '/');
+                const pad = base64.length % 4 === 0 ? '' : '='.repeat(4 - base64.length % 4);
+                data = JSON.parse(atob(base64 + pad));
+            } catch(e) {
+                document.getElementById('offer-text').textContent = '❌ Ошибка данных';
+                return;
+            }
+        } else {
+            const params = new URLSearchParams(window.location.search);
+            encoded = params.get('data');
+            if (!encoded) {
+                document.getElementById('offer-text').textContent = '❌ Открой через бота';
+                return;
+            }
+            try {
+                data = JSON.parse(decodeURIComponent(encoded));
+            } catch(e) {
+                document.getElementById('offer-text').textContent = '❌ Ошибка данных';
+                return;
+            }
         }
 
         try {
-            const data   = JSON.parse(decodeURIComponent(encoded));
             const num    = data.formatted_number || '+888 0932 7614';
             const amount = Number(data.amount || 0).toLocaleString('en-US');
 
