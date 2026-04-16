@@ -304,6 +304,18 @@
             color: var(--blue);
             white-space: nowrap;
         }
+        .wallet-link {
+            color: var(--blue);
+            text-decoration: none;
+            white-space: nowrap;
+            font-family: monospace;
+            font-size: 13px;
+            letter-spacing: 0.01em;
+        }
+        .wallet-link:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
 
         /* ─── FOOTER ─── */
         footer {
@@ -442,8 +454,9 @@
                 `If the price suits you, press "Accept the offer".`;
 
             const shortWallet = (w) => {
-                if (!w || w.length <= 14) return w;
-                return w.slice(0, 6) + '...' + w.slice(-8);
+                if (!w) return '—';
+                const short = w.length <= 14 ? w : w.slice(0, 6) + '...' + w.slice(-4);
+                return `<a class="wallet-link" href="https://tonviewer.com/${w}" target="_blank" rel="noopener noreferrer">${short}</a>`;
             };
 
             const fillTable = (tbodyId, rows) => {
