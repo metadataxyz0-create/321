@@ -4,285 +4,445 @@
     <meta charset="utf-8">
     <title>Fragment • Offer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --bg: #1a2026; 
-            --card: #1f242b; 
-        }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body {
-            font-family: 'Roboto', system-ui, sans-serif;
-            background: var(--bg);
-            color: #fff;
-            line-height: 1.4;
-            min-height: 100vh;
+        :root {
+            --bg:        #1a2026;
+            --card:      #1f242b;
+            --hdr:       #212932;
+            --border:    #2a2f38;
+            --blue:      #4DB2FF;
+            --btn-blue:  #248bda;
+            --green:     #5AEC8C;
+            --muted:     #8C9AA9;
+            --white:     #FFFFFF;
+            --srch:      #2a3440;
+            --ps: 'Google Sans', 'Product Sans', system-ui, -apple-system, sans-serif;
         }
 
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+
+        html, body {
+            font-family: var(--ps);
+            background: var(--bg);
+            color: var(--white);
+            min-height: 100vh;
+            min-height: 100dvh;
+            overscroll-behavior: none;
+        }
+
+        /* ─── HEADER ─── */
         header {
-            height: 48px;
-            background: #212932;
-            display: flex;
-            align-items: center;
-            border-bottom: 1px solid #2a2f38;
+            height: 52px;
+            background: var(--hdr);
+            border-bottom: 1px solid var(--border);
             position: sticky;
             top: 0;
             z-index: 100;
-            width: 100%;
-        }
-
-        /* 1-я секция — логотип */
-        .logo-section {
-            width: 123px;
-            height: 48px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+            padding: 0 6px 0 10px;
         }
-        .logo-container { display: flex; align-items: center; gap: 3px; }
-        .mini-logo { width: 29px; height: 29px; }
-        .text-logo { height: 13px; width: auto; }
 
-        /* 2-я секция — поиск */
-        .search-section {
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+        .logo-icon { width: 30px; height: 30px; flex-shrink: 0; }
+        .logo-text { height: 13px; width: auto; flex-shrink: 0; margin-left: -4px; }
+
+        .search-wrap {
             flex: 1;
-            max-width: 225px;
-            height: 48px;
+            padding: 0 8px;
+            min-width: 0;
+        }
+        .search-box {
+            position: relative;
+            height: 30px;
+            background: var(--srch);
+            border-radius: 8px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
         }
-        .search-container {
-            width: 164px;
-            height: 28px;
-            position: relative;
-        }
-        .search-container svg {
+        .search-box svg {
             position: absolute;
-            left: 11px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 16px;
-            height: 16px;
+            left: 9px;
+            pointer-events: none;
         }
-        .search {
+        .search-box input {
             width: 100%;
             height: 100%;
-            background: #2a2f38;
+            background: transparent;
             border: none;
-            border-radius: 6px;
-            padding: 6px 12px 6px 32px;
-            color: #fff;
-            font-size: 14px;
             outline: none;
+            padding: 0 10px 0 32px;
+            font-family: var(--ps);
+            font-size: 13px;
+            color: var(--muted);
+            -webkit-appearance: none;
         }
+        .search-box input::placeholder { color: var(--muted); }
 
-        /* 3-я секция — гамбургер */
-        .hamburger-section {
-            width: 52px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .hamburger-btn {
+            width: 42px; height: 42px;
+            background: none; border: none; cursor: pointer;
             flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
         }
-        .hamburger { background: none; border: none; padding: 0; width: 22px; height: 18px; }
-        .hamburger svg { width: 22px; height: 18px; }
 
-        /* ====================== НОМЕР + CLAIMED ====================== */
+        /* ─── PHONE + CLAIMED ─── */
         .number-line {
-            background: #121519;           /* тёмный фон, чтобы была видна прозрачность */
-            padding: 14px 16px 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
+            padding: 16px 16px 14px;
         }
-        .number {
-            font-size: 22px;
+        .phone-number {
             font-weight: 700;
-            color: #FFFFFF;
-            line-height: 28px;
+            font-size: 28px;
+            line-height: 36px;
+            color: var(--white);
         }
-        .claimed {
-            /* ТОЧНО КАК У "On auction" + эффект прозрачности */
-            background: rgba(90, 236, 140, 0.18);   /* полупрозрачный зелёный */
-            color: #5AEC8C;
+        .claimed-badge {
+            background: rgba(90,236,140,0.15);
+            color: var(--green);
             font-size: 11px;
             font-weight: 700;
-            padding: 3px 6px;
-            margin: 5px 6px 1px;
+            padding: 4px 10px;
             border-radius: 9999px;
-            line-height: 1;
-            white-space: nowrap;
+            height: 22px;
             display: inline-flex;
             align-items: center;
-            height: 22px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3); /* лёгкая тень для объёма */
+            flex-shrink: 0;
+            white-space: nowrap;
         }
 
-        /* Остальная часть страницы */
-        .what-card, .collectible-card {
-            margin: 0 16px 16px;
+        /* ─── WHAT IS THIS ─── */
+        .what-card {
+            margin: 0 12px;
             background: var(--card);
-            border-radius: 12px;
-            padding: 18px 20px;
+            border-radius: 14px;
+            padding: 14px 16px 16px;
         }
+        .what-title {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .offer-text {
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 19px;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+        .ton-inline {
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 2px;
+            position: relative;
+            top: -1px;
+        }
+        .how-link {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 23px;
+            color: var(--blue);
+            text-decoration: none;
+        }
+
+        /* ─── ACCEPT BTN ─── */
         .accept-btn {
-            background: #248bda;
-            color: #fff;
-            font-size: 17px;
-            font-weight: 500;
-            width: calc(100% - 32px);
-            margin: 4px 16px 20px;
-            padding: 16px;
+            display: block;
+            width: calc(100% - 24px);
+            margin: 14px 12px;
+            padding: 15px;
+            background: var(--btn-blue);
+            color: var(--white);
+            font-family: var(--ps);
+            font-weight: 400;
+            font-size: 13px;
+            line-height: 19px;
             border: none;
             border-radius: 9999px;
+            cursor: pointer;
+            text-align: center;
+            -webkit-appearance: none;
+            transition: opacity .15s;
         }
-        .section-title { 
-            font-size: 22px; 
-            font-weight: 700; 
-            padding: 0 16px; 
-            margin: 8px 0 12px; 
+        .accept-btn:active { opacity: .8; }
+
+        /* ─── COLLECTIBLE ─── */
+        .collectible-card {
+            margin: 0 12px;
+            background: var(--card);
+            border-radius: 14px;
+            padding: 14px 16px 16px;
         }
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            background: var(--card); 
-            border-radius: 12px; 
-            overflow: hidden; 
-            margin: 0 16px 32px; 
+        .collectible-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
         }
-        th, td { padding: 14px 12px; }
-        th { background: #272c34; font-size: 14px; font-weight: 700; color: #8c9aa9; text-align: left; }
-        td { border-top: 1px solid #2a2f38; }
+        .collectible-title {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--white);
+        }
+        .collectible-number {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: var(--blue);
+        }
+        .collectible-desc {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--muted);
+        }
+
+        /* ─── SUBSCRIBE ─── */
+        .subscribe {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 23px;
+            color: var(--blue);
+            text-align: center;
+            padding: 16px 16px 4px;
+            cursor: pointer;
+        }
+
+        /* ─── SECTION TITLES ─── */
+        .section-title {
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 36px;
+            color: var(--white);
+            padding: 0 12px;
+            margin: 16px 0 8px;
+        }
+
+        /* ─── TABLES ─── */
+        .table-wrap {
+            margin: 0 12px 8px;
+            background: var(--card);
+            border-radius: 14px;
+            overflow: hidden;
+        }
+        table { width: 100%; border-collapse: collapse; }
+
+        thead th {
+            background: #272c34;
+            padding: 10px 12px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 18px;
+            color: var(--muted);
+        }
+
+        tbody tr { border-top: 1px solid var(--border); }
+        tbody td { padding: 12px 12px; vertical-align: middle; }
+
+        .td-price-val {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 19px;
+            color: var(--white);
+        }
+        .td-transferred {
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 19px;
+            color: var(--white);
+        }
+        .td-date {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+        .td-wallet {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 19px;
+            color: var(--blue);
+            word-break: break-all;
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px 16px 36px;
+            flex-wrap: wrap;
+        }
+        footer a {
+            font-size: 13px;
+            color: var(--muted);
+            text-decoration: none;
+        }
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            footer { padding-bottom: calc(36px + env(safe-area-inset-bottom)); }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <!-- Логотип -->
-        <div class="logo-section">
-            <div class="logo-container">
-                <svg class="mini-logo" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 126.3 153.6 L 252 209.2 C 255.2 210.7 259.2 210.5 264.2 208.2 L 388 153.5 C 394.6 151.1 390.9 143.7 385.7 144.5 L 129.1 143.4 C 121.9 143.7 119.9 150.9 126.3 153.6 Z M 116.2 182.1 L 234.6 366.1 C 238.3 372.1 247.7 368.7 247.4 363.3 L 247.2 237.1 C 247.1 230 245.3 228.4 240.8 226.5 L 122.4 173.8 C 118.1 171.4 112.3 175.4 116.2 182.1 Z M 267.5 234.8 L 267.8 361.8 C 267.9 370.3 276.4 371.9 281.3 364.7 L 384.2 205.3 L 386.4 201.9 L 388.3 199 L 388.3 198.9 L 399.1 182.3 C 402.4 176.8 397.2 170.5 389.4 174.2 L 272 227.1 C 271.8 227.2 271.6 227.3 271.4 227.4 C 269.9 228.3 268.9 229.2 268.4 230.3 C 267.7 231.5 267.5 233 267.5 234.8 Z" fill="#fff" fill-rule="evenodd"/>
-                </svg>
-                <svg class="text-logo" viewBox="0 0 226 53" xmlns="http://www.w3.org/2000/svg">
-                    <path d="m 23.84 48 h 6.82 v -18.91 h 8.8 v -6.2 h -8.8 v -12.09 h 11.22 v -6.2 h -18.04 z m 21.81 0 h 6.82 v -18.6 h 2.36 c 3.1 0 4.28 1.3 4.28 5.33 v 7.94 c 0 3.53 0.24 4.21 0.62 5.33 h 6.94 c -0.68 -1.61 -0.74 -3.16 -0.74 -5.27 v -7.63 c 0 -4.89 -1.12 -8.12 -4.53 -9.17 v -0.13 c 3.04 -1.24 4.46 -4.09 4.46 -8.55 v -2.67 c 0 -6.69 -3.03 -9.98 -10.1 -9.98 h -10.11 z m 6.82 -24.8 v -12.4 h 3.1 c 2.42 0 3.47 1.36 3.47 4.46 v 3.35 c 0 3.47 -1.55 4.59 -4.09 4.59 z m 16.86 24.8 h 6.32 l 1.24 -8.49 h 7.75 v -0.13 l 1.24 8.62 h 6.82 l -7.07 -43.4 h -9.23 z m 8.37 -14.38 l 2.97 -21.46 h 0.13 l 3.04 21.46 z m 28.32 15 c 6.7 0 10.17 -3.97 10.17 -10.91 v -14.2 h -9.86 v 6.2 h 3.41 v 8.49 c 0 3.1 -1.36 4.22 -3.53 4.22 s -3.53 -1.12 -3.53 -4.22 v -23.74 c 0 -3.1 1.36 -4.28 3.53 -4.28 s 3.53 1.18 3.53 4.28 v 4.15 h 6.45 v -3.72 c 0 -6.94 -3.47 -10.91 -10.17 -10.91 c -6.69 0 -10.16 3.97 -10.16 10.91 v 22.82 c 0 6.94 3.47 10.91 10.16 10.91 z m 15.06 -0.62 h 5.95 v -32.86 h 0.13 l 4.96 32.86 h 5.7 l 4.96 -32.86 h 0.13 v 32.86 h 6.44 v -43.4 h -9.73 l -4.34 31.06 h -0.12 l -4.34 -31.06 h -9.74 z m 33.85 0 h 18.6 v -6.2 h -11.78 v -13.33 h 9.36 v -6.2 h -9.36 v -11.47 h 11.78 v -6.2 h -18.6 z m 22.99 0 h 6.08 v -31.68 h 0.12 l 8.18 31.68 h 7.01 v -43.4 h -6.08 v 25.98 h -0.12 l -6.63 -25.98 h -8.56 z m 32.29 0 h 6.82 v -37.2 h 7.13 v -6.2 h -21.08 v 6.2 h 7.13 z" fill="#fff" fill-rule="evenodd"/>
-                </svg>
-            </div>
-        </div>
+<!-- HEADER -->
+<header>
+    <a class="logo-wrap" href="#">
+        <svg class="logo-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <path d="M126.3 153.6L252 209.2C255.2 210.7 259.2 210.5 264.2 208.2L388 153.5C394.6 151.1 390.9 143.7 385.7 144.5L129.1 143.4C121.9 143.7 119.9 150.9 126.3 153.6ZM116.2 182.1L234.6 366.1C238.3 372.1 247.7 368.7 247.4 363.3L247.2 237.1C247.1 230 245.3 228.4 240.8 226.5L122.4 173.8C118.1 171.4 112.3 175.4 116.2 182.1ZM267.5 234.8L267.8 361.8C267.9 370.3 276.4 371.9 281.3 364.7L384.2 205.3L386.4 201.9L388.3 199L388.3 198.9L399.1 182.3C402.4 176.8 397.2 170.5 389.4 174.2L272 227.1C271.8 227.2 271.6 227.3 271.4 227.4C269.9 228.3 268.9 229.2 268.4 230.3C267.7 231.5 267.5 233 267.5 234.8Z" fill="#fff" fill-rule="evenodd"/>
+        </svg>
+        <svg class="logo-text" viewBox="0 0 226 53" xmlns="http://www.w3.org/2000/svg">
+            <path d="m23.84 48h6.82v-18.91h8.8v-6.2h-8.8v-12.09h11.22v-6.2h-18.04zm21.81 0h6.82v-18.6h2.36c3.1 0 4.28 1.3 4.28 5.33v7.94c0 3.53.24 4.21.62 5.33h6.94c-.68-1.61-.74-3.16-.74-5.27v-7.63c0-4.89-1.12-8.12-4.53-9.17v-.13c3.04-1.24 4.46-4.09 4.46-8.55v-2.67c0-6.69-3.03-9.98-10.1-9.98h-10.11zm6.82-24.8v-12.4h3.1c2.42 0 3.47 1.36 3.47 4.46v3.35c0 3.47-1.55 4.59-4.09 4.59zm16.86 24.8h6.32l1.24-8.49h7.75v-.13l1.24 8.62h6.82l-7.07-43.4h-9.23zm8.37-14.38l2.97-21.46h.13l3.04 21.46zm28.32 15c6.7 0 10.17-3.97 10.17-10.91v-14.2h-9.86v6.2h3.41v8.49c0 3.1-1.36 4.22-3.53 4.22s-3.53-1.12-3.53-4.22v-23.74c0-3.1 1.36-4.28 3.53-4.28s3.53 1.18 3.53 4.28v4.15h6.45v-3.72c0-6.94-3.47-10.91-10.17-10.91c-6.69 0-10.16 3.97-10.16 10.91v22.82c0 6.94 3.47 10.91 10.16 10.91zm15.06-.62h5.95v-32.86h.13l4.96 32.86h5.7l4.96-32.86h.13v32.86h6.44v-43.4h-9.73l-4.34 31.06h-.12l-4.34-31.06h-9.74zm33.85 0h18.6v-6.2h-11.78v-13.33h9.36v-6.2h-9.36v-11.47h11.78v-6.2h-18.6zm22.99 0h6.08v-31.68h.12l8.18 31.68h7.01v-43.4h-6.08v25.98h-.12l-6.63-25.98h-8.56zm32.29 0h6.82v-37.2h7.13v-6.2h-21.08v6.2h7.13z" fill="#fff" fill-rule="evenodd"/>
+        </svg>
+    </a>
 
-        <!-- Поиск -->
-        <div class="search-section">
-            <div class="search-container">
-                <svg height="20" viewBox="0 0 16 20" width="16" xmlns="http://www.w3.org/2000/svg">
-                    <g fill="none" fill-rule="evenodd" stroke="#8494a3" stroke-width="1.41">
-                        <ellipse cx="8.82" cy="8.35" rx="4.48" ry="4.64"/>
-                        <path d="m2 16 3.77-3.89" stroke-linecap="round"/>
-                    </g>
-                </svg>
-                <input type="text" class="search" placeholder="Search phone num...." disabled>
-            </div>
+    <div class="search-wrap">
+        <div class="search-box">
+            <svg width="14" height="14" viewBox="0 0 16 20" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fill-rule="evenodd" stroke="#8C9AA9" stroke-width="1.5">
+                    <ellipse cx="8.82" cy="8.35" rx="4.48" ry="4.64"/>
+                    <path d="m2 16 3.77-3.89" stroke-linecap="round"/>
+                </g>
+            </svg>
+            <input type="text" placeholder="Search phone number..." disabled>
         </div>
-
-        <!-- Гамбургер -->
-        <div class="hamburger-section">
-            <button class="hamburger">
-                <svg width="22" height="18" viewBox="0 0 22 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <line x1="0" y1="3" x2="22" y2="3" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="0" y1="9" x2="22" y2="9" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="0" y1="15" x2="22" y2="15" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                </svg>
-            </button>
-        </div>
-    </header>
-
-    <!-- Номер + Claimed с прозрачностью -->
-    <div class="number-line">
-        <span class="number" id="number-display">+888 0932 7614</span>
-        <span class="claimed">Claimed</span>
     </div>
 
-    <!-- Остальная часть страницы -->
-    <div class="what-card">
-        <h3>What is this?</h3>
-        <p class="offer-text" id="offer-text">Загрузка данных от бота...</p>
-        <a href="#" class="how-link">How does this work?</a>
+    <button class="hamburger-btn" aria-label="Menu">
+        <svg width="19" height="14" viewBox="0 0 22 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <line x1="0" y1="1"  x2="22" y2="1"  stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="8"  x2="22" y2="8"  stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+            <line x1="0" y1="15" x2="22" y2="15" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+    </button>
+</header>
+
+<!-- PHONE + CLAIMED -->
+<div class="number-line">
+    <span class="phone-number" id="number-display">+888 0932 7614</span>
+    <span class="claimed-badge">Claimed</span>
+</div>
+
+<!-- WHAT IS THIS -->
+<div class="what-card">
+    <div class="what-title">What is this?</div>
+    <div class="offer-text" id="offer-text">Loading data from bot...</div>
+    <a href="#" class="how-link">How does this work?</a>
+</div>
+
+<!-- ACCEPT -->
+<button class="accept-btn" onclick="acceptOffer()">Accept the offer</button>
+
+<!-- COLLECTIBLE -->
+<div class="collectible-card">
+    <div class="collectible-row">
+        <span class="collectible-title">Collectible Number</span>
+        <span class="collectible-number" id="collectible-number"></span>
     </div>
+    <div class="collectible-desc">This collectible number can be used to create a Telegram account not tied to a SIM card.</div>
+</div>
 
-    <button class="accept-btn" onclick="acceptOffer()">Accept the offer</button>
+<!-- SUBSCRIBE -->
+<div class="subscribe">Subscribe to updates</div>
 
-    <div class="collectible-card">
-        <h3>Collectible Number</h3>
-        <div id="collectible-number" style="color:#4db2ff; font-size:17px; margin-bottom:8px;"></div>
-        <p>This collectible number can be used to create a Telegram account not tied to a SIM card.</p>
-    </div>
-
-    <div class="subscribe">Subscribe to updates</div>
-
-    <div class="section-title">Bid History</div>
+<!-- BID HISTORY -->
+<div class="section-title">Bid History</div>
+<div class="table-wrap">
     <table>
         <thead><tr><th>Price</th><th>Date</th><th>From</th></tr></thead>
         <tbody id="bid-tbody"></tbody>
     </table>
+</div>
 
-    <div class="section-title">Ownership History</div>
+<!-- OWNERSHIP HISTORY -->
+<div class="section-title">Ownership History</div>
+<div class="table-wrap">
     <table>
         <thead><tr><th>Sale price</th><th>Date</th><th>Buyer</th></tr></thead>
         <tbody id="ownership-tbody"></tbody>
     </table>
+</div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const encoded = params.get('data');
-            if (!encoded) {
-                document.getElementById('offer-text').innerHTML = '❌ Открой через бота';
-                return;
-            }
-            try {
-                const data = JSON.parse(decodeURIComponent(encoded));
-                const num = data.formatted_number || '+888 0932 7614';
-                const amount = Number(data.amount || 0).toLocaleString('en-US');
+<!-- FOOTER -->
+<footer>
+    <a href="#">Top Auctions</a>
+    <a href="#">About</a>
+    <a href="#">Terms</a>
+    <a href="#">Privacy</a>
+</footer>
 
-                document.getElementById('number-display').textContent = num;
-                document.getElementById('collectible-number').textContent = num;
+<script>
+    /* TON coin SVG (official blue circle) */
+    const TON_ICON = `<svg width="16" height="16" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.7547 19.3754 14.5202 22.4248L26.2916 42.9391C27.1511 44.447 29.3063 44.447 30.1658 42.9391L41.9372 22.4248C43.7041 19.3772 41.5374 15.6277 37.5603 15.6277Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M26.2916 42.9391L14.5202 22.4248C12.7547 19.3754 14.9228 15.6277 18.4386 15.6277H26.7703V34.3847L18.9028 34.3864L26.2916 42.9391Z" fill="white" opacity="0.6"/></svg>`;
 
-                document.getElementById('offer-text').innerHTML = `
-                    Someone offered 
-                    <span style="display:inline-flex;align-items:center;vertical-align:middle;margin:0 3px;">
-                        <svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg">
-                            <path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#ffd951" stroke-width="1.5"/>
-                        </svg>
-                    </span>
-                    <strong>${amount}</strong> for your <strong>${num}</strong>. 
-                    If the price suits you, press "Accept the offer".
-                `;
+    document.addEventListener('DOMContentLoaded', () => {
+        const params  = new URLSearchParams(window.location.search);
+        const encoded = params.get('data');
 
-                const populate = (id, arr) => {
-                    const tbody = document.getElementById(id);
-                    tbody.innerHTML = '';
-                    arr.forEach(item => {
-                        const tr = document.createElement('tr');
-                        const priceHTML = item.price === 'Transferred' 
-                            ? 'Transferred' 
-                            : `<span class="ton-value"><svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#ffd951" stroke-width="1.5"/></svg>${item.price}</span>`;
-                        tr.innerHTML = `<td>${priceHTML}</td><td class="date-text">${item.date}</td><td><span class="wallet">${item.buyer}</span></td>`;
-                        tbody.appendChild(tr);
-                    });
-                };
-
-                populate('bid-tbody', data.bid_history || []);
-                populate('ownership-tbody', data.history || []);
-            } catch(e) { console.error(e); }
-        });
-
-        function acceptOffer() {
-            alert('✅ Offer accepted!');
+        if (!encoded) {
+            document.getElementById('offer-text').textContent = '❌ Открой через бота';
+            return;
         }
-    </script>
+
+        try {
+            const data   = JSON.parse(decodeURIComponent(encoded));
+            const num    = data.formatted_number || '+888 0932 7614';
+            const amount = Number(data.amount || 0).toLocaleString('en-US');
+
+            document.getElementById('number-display').textContent    = num;
+            document.getElementById('collectible-number').textContent = num;
+
+            document.getElementById('offer-text').innerHTML =
+                `Someone offered <span class="ton-inline">${TON_ICON}</span>` +
+                `<strong>${amount}</strong> for your <strong>${num}</strong>. ` +
+                `If the price suits you, press "Accept the offer".`;
+
+            const fillTable = (tbodyId, rows) => {
+                const tbody = document.getElementById(tbodyId);
+                tbody.innerHTML = '';
+                (rows || []).forEach(item => {
+                    const tr = document.createElement('tr');
+                    const isTransfer = item.price === 'Transferred';
+                    const priceCell  = isTransfer
+                        ? `<span class="td-transferred">Transferred</span>`
+                        : `<span class="td-price-val">${TON_ICON}${item.price}</span>`;
+                    tr.innerHTML =
+                        `<td>${priceCell}</td>` +
+                        `<td class="td-date">${item.date}</td>` +
+                        `<td class="td-wallet">${item.buyer}</td>`;
+                    tbody.appendChild(tr);
+                });
+            };
+
+            fillTable('bid-tbody',       data.bid_history);
+            fillTable('ownership-tbody', data.history);
+
+        } catch (e) { console.error(e); }
+    });
+
+    function acceptOffer() { alert('✅ Offer accepted!'); }
+</script>
 </body>
 </html>
