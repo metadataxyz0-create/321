@@ -302,7 +302,7 @@
             font-size: 14px;
             line-height: 19px;
             color: var(--blue);
-            word-break: break-all;
+            white-space: nowrap;
         }
 
         /* ─── FOOTER ─── */
@@ -441,9 +441,18 @@
                 `<strong>${amount}</strong> for your <strong>${num}</strong>. ` +
                 `If the price suits you, press "Accept the offer".`;
 
+            const shortWallet = (w) => {
+                if (!w || w.length <= 14) return w;
+                return w.slice(0, 6) + '...' + w.slice(-8);
+            };
+
             const fillTable = (tbodyId, rows) => {
                 const tbody = document.getElementById(tbodyId);
                 tbody.innerHTML = '';
+                if (!rows || rows.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="3" class="td-date" style="text-align:center;padding:14px">No ownership history available</td></tr>`;
+                    return;
+                }
                 (rows || []).forEach(item => {
                     const tr = document.createElement('tr');
                     const isTransfer = item.price === 'Transferred';
@@ -453,7 +462,7 @@
                     tr.innerHTML =
                         `<td>${priceCell}</td>` +
                         `<td class="td-date">${item.date}</td>` +
-                        `<td class="td-wallet">${item.buyer}</td>`;
+                        `<td class="td-wallet">${shortWallet(item.buyer)}</td>`;
                     tbody.appendChild(tr);
                 });
             };
