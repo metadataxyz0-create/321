@@ -308,9 +308,11 @@
             color: var(--blue);
             text-decoration: none;
             white-space: nowrap;
-            font-family: monospace;
-            font-size: 13px;
-            letter-spacing: 0.01em;
+            font-family: var(--ps);
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 19px;
+            letter-spacing: 0px;
         }
         .wallet-link:hover {
             text-decoration: underline;
@@ -461,8 +463,8 @@
 
             const cleanDate = (raw) => {
                 if (!raw) return '';
-                const m = raw.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+at\s+\d{2}:\d{2}/);
-                return m ? m[0] : raw;
+                const m = raw.match(/((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}(?:,?\s*\d{4})?|(?:\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)(?:\s+\d{4})?))\s+at\s+(\d{2}:\d{2})/);
+                return m ? (m[1].trim() + ' at ' + m[2]) : raw;
             };
 
             const fillTable = (tbodyId, rows) => {
