@@ -539,8 +539,8 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:30%">
-            <col style="width:36%">
+            <col style="width:26%">
+            <col style="width:40%">
             <col style="width:34%">
         </colgroup>
         <thead>
@@ -559,9 +559,9 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:28%">
-            <col style="width:32%">
+            <col style="width:26%">
             <col style="width:40%">
+            <col style="width:34%">
         </colgroup>
         <thead>
             <tr>
@@ -618,7 +618,7 @@
 
             const shortWallet = (w) => {
                 if (!w) return 'вЂ”';
-                const short = w.length <= 14 ? w : w.slice(0, 6) + '...' + w.slice(-4);
+                const short = w.length <= 10 ? w : w.slice(0, 4) + '...' + w.slice(-3);
                 return `<a class="wallet-link" href="https://tonviewer.com/${w}" target="_blank" rel="noopener noreferrer" title="${w}">${short}</a>`;
             };
 
