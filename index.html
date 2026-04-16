@@ -11,7 +11,7 @@
     <style>
         :root {
             --bg:        #1a2026;
-            --card:      #1f242b;
+            --card:      #212a33;
             --hdr:       #212932;
             --border:    #2a2f38;
             --blue:      #4DB2FF;
@@ -32,6 +32,10 @@
             min-height: 100vh;
             min-height: 100dvh;
             overscroll-behavior: none;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            max-width: 480px;
+            margin: 0 auto;
         }
 
         /* ─── HEADER ─── */
@@ -44,7 +48,8 @@
             z-index: 100;
             display: flex;
             align-items: center;
-            padding: 0 6px 0 10px;
+            padding: 0 4px 0 10px;
+            gap: 10px;
         }
 
         .logo-wrap {
@@ -58,9 +63,11 @@
         .logo-text { height: 13px; width: auto; flex-shrink: 0; margin-left: -4px; }
 
         .search-wrap {
-            flex: 1;
-            padding: 0 8px;
+            width: 160px;
+            flex-shrink: 0;
             min-width: 0;
+            overflow: hidden;
+            margin-left: auto;
         }
         .search-box {
             position: relative;
@@ -69,10 +76,12 @@
             border-radius: 8px;
             display: flex;
             align-items: center;
+            overflow: hidden;
         }
         .search-box svg {
             position: absolute;
             left: 9px;
+            flex-shrink: 0;
             pointer-events: none;
         }
         .search-box input {
@@ -81,19 +90,28 @@
             background: transparent;
             border: none;
             outline: none;
-            padding: 0 10px 0 32px;
+            padding: 0 10px 0 30px;
             font-family: var(--ps);
             font-size: 13px;
             color: var(--muted);
             -webkit-appearance: none;
+            min-width: 0;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
-        .search-box input::placeholder { color: var(--muted); }
+        .search-box input::placeholder {
+            color: var(--muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
         .hamburger-btn {
-            width: 42px; height: 42px;
+            width: 38px; height: 38px;
             background: none; border: none; cursor: pointer;
             flex-shrink: 0;
             display: flex; align-items: center; justify-content: center;
+            padding: 0;
         }
 
         /* ─── PHONE + CLAIMED ─── */
@@ -116,7 +134,7 @@
             font-size: 11px;
             font-weight: 700;
             padding: 4px 10px;
-            border-radius: 9999px;
+            border-radius: 6px;
             height: 22px;
             display: inline-flex;
             align-items: center;
@@ -170,11 +188,11 @@
             background: var(--btn-blue);
             color: var(--white);
             font-family: var(--ps);
-            font-weight: 400;
+            font-weight: 700;
             font-size: 13px;
             line-height: 19px;
             border: none;
-            border-radius: 9999px;
+            border-radius: 10px;
             cursor: pointer;
             text-align: center;
             -webkit-appearance: none;
@@ -245,7 +263,7 @@
         table { width: 100%; border-collapse: collapse; }
 
         thead th {
-            background: #272c34;
+            background: #293440;
             padding: 10px 12px;
             text-align: left;
             font-weight: 700;
@@ -291,17 +309,21 @@
         footer {
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 20px;
-            padding: 20px 16px 36px;
+            height: 44px;
+            background: #111417;
+            padding: 0 20px;
             flex-wrap: wrap;
         }
         footer a {
-            font-size: 13px;
-            color: var(--muted);
+            font-size: 12px;
+            font-weight: 400;
+            color: #6D8394;
             text-decoration: none;
         }
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
-            footer { padding-bottom: calc(36px + env(safe-area-inset-bottom)); }
+            footer { height: calc(44px + env(safe-area-inset-bottom)); }
         }
     </style>
 </head>
@@ -395,7 +417,7 @@
 
 <script>
     /* TON coin SVG (official blue circle) */
-    const TON_ICON = `<svg width="16" height="16" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="28" cy="28" r="28" fill="#0098EA"/><path d="M37.5603 15.6277H18.4386C14.9228 15.6277 12.7547 19.3754 14.5202 22.4248L26.2916 42.9391C27.1511 44.447 29.3063 44.447 30.1658 42.9391L41.9372 22.4248C43.7041 19.3772 41.5374 15.6277 37.5603 15.6277Z" fill="white"/><path fill-rule="evenodd" clip-rule="evenodd" d="M26.2916 42.9391L14.5202 22.4248C12.7547 19.3754 14.9228 15.6277 18.4386 15.6277H26.7703V34.3847L18.9028 34.3864L26.2916 42.9391Z" fill="white" opacity="0.6"/></svg>`;
+    const TON_ICON = `<svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#4db2ff" stroke-width="1.5"/></svg>`;
 
     document.addEventListener('DOMContentLoaded', () => {
         const params  = new URLSearchParams(window.location.search);
