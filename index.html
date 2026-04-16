@@ -459,6 +459,12 @@
                 return `<a class="wallet-link" href="https://tonviewer.com/${w}" target="_blank" rel="noopener noreferrer">${short}</a>`;
             };
 
+            const cleanDate = (raw) => {
+                if (!raw) return '';
+                const m = raw.match(/(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+at\s+\d{2}:\d{2}/);
+                return m ? m[0] : raw;
+            };
+
             const fillTable = (tbodyId, rows) => {
                 const tbody = document.getElementById(tbodyId);
                 tbody.innerHTML = '';
@@ -474,7 +480,7 @@
                         : `<span class="td-price-val">${TON_ICON}${item.price}</span>`;
                     tr.innerHTML =
                         `<td>${priceCell}</td>` +
-                        `<td class="td-date">${item.date}</td>` +
+                        `<td class="td-date">${cleanDate(item.date)}</td>` +
                         `<td class="td-wallet">${shortWallet(item.buyer)}</td>`;
                     tbody.appendChild(tr);
                 });
