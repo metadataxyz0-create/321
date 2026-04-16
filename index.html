@@ -587,25 +587,24 @@
 <script>
     const TON_ICON = `<svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#4db2ff" stroke-width="1.5"/></svg>`;
 
+    const SERVER_URL = 'fr-production-3b30.up.railway.app';  // <-- замени на свой реальный URL
+
     function initApp() {
         const tg = window.Telegram?.WebApp;
         if (tg) tg.ready();
 
-        // 1. Telegram Mini App: start_param
-        let encoded = tg?.initDataUnsafe?.start_param || null;
+        fetch(SERVER_URL + '/offer')
+            .then(r => {
+                if (!r.ok) throw new Error('No offer');
+                return r.json();
+            })
+            .then(data => renderData(data))
+            .catch(() => {
+                document.getElementById('offer-text').textContent = '❌ Не удалось загрузить данные';
+            });
+    }
 
-        // 2. Fallback: ?data= for browser/debug
-        if (!encoded) {
-            encoded = new URLSearchParams(window.location.search).get('data');
-        }
-
-        if (!encoded) {
-            document.getElementById('offer-text').textContent = '\u274c \u041e\u0442\u043a\u0440\u043e\u0439 \u0447\u0435\u0440\u0435\u0437 \u0431\u043e\u0442\u0430';
-            return;
-        }
-
-        try {
-            const data = JSON.parse(decodeURIComponent(encoded));
+    function renderData(data) {
             const num    = data.formatted_number || '+888 0932 7614';
             const amount = Number(data.amount || 0).toLocaleString('en-US');
 
@@ -675,7 +674,6 @@
             fillBidTable('bid-tbody',            data.bid_history);
             fillOwnershipTable('ownership-tbody', data.history);
 
-        } catch (e) { console.error(e); }
     }
 
     window.addEventListener('load', initApp);
