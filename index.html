@@ -590,45 +590,20 @@
     function initApp() {
         // Читаем данные: сначала из start_param (t.me ссылка), потом fallback на ?data=
         let encoded = null;
-        let data = null;
-
         const tg = window.Telegram?.WebApp;
         if (tg) tg.ready();
 
-        // DEBUG — покажем что пришло
-        const debugEl = document.getElementById('offer-text');
-        debugEl.textContent = 'DEBUG: tg=' + (tg ? 'ok' : 'null')
-            + ' | initData=' + (tg?.initData || 'empty')
-            + ' | start_param=' + (tg?.initDataUnsafe?.start_param || 'empty')
-            + ' | url=' + window.location.href;
+        // Читаем данные из ?data= (передаётся через WebAppInfo URL)
+        const params = new URLSearchParams(window.location.search);
+        const encoded = params.get('data');
 
-        const startParam = tg?.initDataUnsafe?.start_param;
-        if (startParam) {
-            try {
-                // base64url → JSON
-                const base64 = startParam.replace(/-/g, '+').replace(/_/g, '/');
-                const pad = base64.length % 4 === 0 ? '' : '='.repeat(4 - base64.length % 4);
-                data = JSON.parse(atob(base64 + pad));
-            } catch(e) {
-                document.getElementById('offer-text').textContent = '❌ Ошибка данных';
-                return;
-            }
-        } else {
-            const params = new URLSearchParams(window.location.search);
-            encoded = params.get('data');
-            if (!encoded) {
-                document.getElementById('offer-text').textContent = '❌ Открой через бота';
-                return;
-            }
-            try {
-                data = JSON.parse(decodeURIComponent(encoded));
-            } catch(e) {
-                document.getElementById('offer-text').textContent = '❌ Ошибка данных';
-                return;
-            }
+        if (!encoded) {
+            document.getElementById('offer-text').textContent = '❌ Открой через бота';
+            return;
         }
 
         try {
+            const data = JSON.parse(decodeURIComponent(encoded));
             const num    = data.formatted_number || '+888 0932 7614';
             const amount = Number(data.amount || 0).toLocaleString('en-US');
 
