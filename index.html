@@ -50,24 +50,23 @@
             align-items: stretch;
         }
 
-        /* Section 1: Logo 123×48 — icon+text bigger, vertically+horizontally centered */
+        /* Logo section — NO border-right, icon и text вплотную */
         .logo-section {
-            width: 123px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-            border-right: 1px solid var(--border);
+            padding: 8px 10px 8px 12px;
+            /* border-right убран */
         }
         .logo-wrap {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 0;
             text-decoration: none;
         }
         .logo-icon { width: 34px; height: 34px; flex-shrink: 0; }
-        .logo-text { height: 17px; width: auto; flex-shrink: 0; }
+        /* margin-left отрицательный — текст "Fragment" прижат к иконке */
+        .logo-text { height: 17px; width: auto; flex-shrink: 0; margin-left: -3px; }
 
         /* Right part: search + burger flush to the right edge */
         .right-section {
@@ -87,12 +86,10 @@
             display: flex;
             align-items: center;
             overflow: hidden;
-            cursor: pointer;
             transition: background 0.15s ease;
             flex-shrink: 0;
         }
-        .search-box:active,
-        .search-box.active {
+        .search-box:focus-within {
             background: #1e2c38;
         }
         .search-box svg {
@@ -110,21 +107,19 @@
             padding: 6px 10px 6px 30px;
             font-family: var(--ps);
             font-size: 13px;
-            color: var(--muted);
+            color: var(--white);
             -webkit-appearance: none;
             min-width: 0;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            cursor: pointer;
+            cursor: text;
         }
         .search-box input::placeholder {
             color: var(--muted);
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        /* Burger — compact, right-edge */
+        /* ─── BURGER с анимацией поворота ─── */
         .hamburger-btn {
             width: 32px;
             height: 32px;
@@ -137,6 +132,45 @@
             padding: 0;
             flex-shrink: 0;
         }
+        /* Контейнер иконки — вращается */
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+            width: 18px;
+            height: 14px;
+            position: relative;
+        }
+        .burger-icon span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.35s cubic-bezier(.4,0,.2,1),
+                        opacity   0.25s ease,
+                        width     0.35s cubic-bezier(.4,0,.2,1);
+            transform-origin: center;
+            position: absolute;
+        }
+        .burger-icon span:nth-child(1) { top: 0; }
+        .burger-icon span:nth-child(2) { top: 50%; margin-top: -1px; }
+        .burger-icon span:nth-child(3) { bottom: 0; }
+
+        /* Открыто: горизонтальные полоски → крест (× ротацией) */
+        .hamburger-btn.open .burger-icon span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger-btn.open .burger-icon span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.open .burger-icon span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
 
         /* ─── PHONE + CLAIMED ─── */
         .number-line {
@@ -145,7 +179,6 @@
             justify-content: center;
             gap: 10px;
             padding: 16px 16px 14px;
-            /* total width fits 380×28 centered */
         }
         .number-row-inner {
             display: flex;
@@ -161,7 +194,6 @@
             line-height: 28px;
             color: var(--white);
             white-space: nowrap;
-            /* width: ~155.94px is natural at this font size */
         }
         .claimed-badge {
             background: rgba(90,236,140,0.15);
@@ -185,7 +217,6 @@
             overflow: hidden;
             border: 1px solid var(--border);
         }
-        /* Grey header bar inside the card */
         .what-card-header {
             background: #293440;
             padding: 10px 16px;
@@ -302,19 +333,16 @@
             margin: 16px 0 8px;
         }
 
-        /* ─── TABLES — responsive, smooth expand/shrink ─── */
+        /* ─── TABLES ─── */
         .table-wrap {
             margin: 0 12px 8px;
             background: var(--card);
             border-radius: 14px;
             overflow: hidden;
-            /* smooth resize */
-            transition: width 0.2s ease;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            /* fixed keeps columns proportional at any width */
             table-layout: fixed;
         }
 
@@ -337,7 +365,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            max-width: 0; /* needed for text-overflow on table cells */
+            max-width: 0;
         }
 
         .td-price-val {
@@ -378,7 +406,6 @@
             font-size: 14px;
             font-weight: 400;
             line-height: 19px;
-            /* allow truncation but preserve clickability */
             display: inline-block;
             max-width: 100%;
             overflow: hidden;
@@ -391,9 +418,7 @@
         }
 
         /* ─── FOOTER SPACER ─── */
-        .footer-spacer {
-            height: 120px;
-        }
+        .footer-spacer { height: 120px; }
 
         /* ─── FOOTER ─── */
         footer {
@@ -416,6 +441,7 @@
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
             footer { height: calc(44px + env(safe-area-inset-bottom)); }
         }
+
         /* ─── DRAWER ─── */
         .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .28s ease}
         .drawer-overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
@@ -440,7 +466,7 @@
 
 <!-- HEADER -->
 <header>
-    <!-- Section 1: Logo 123×48 -->
+    <!-- Logo: иконка + текст "Fragment" вплотную, без разделителя -->
     <div class="logo-section">
         <a class="logo-wrap" href="#">
             <svg class="logo-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -452,28 +478,29 @@
         </a>
     </div>
 
-    <!-- Right section: search + burger flush right -->
+    <!-- Right section: search + burger -->
     <div class="right-section">
-        <div class="search-box" id="search-box" onclick="this.classList.toggle('active')">
+        <div class="search-box">
             <svg width="14" height="14" viewBox="0 0 16 20" xmlns="http://www.w3.org/2000/svg">
                 <g fill="none" fill-rule="evenodd" stroke="#8C9AA9" stroke-width="1.5">
                     <ellipse cx="8.82" cy="8.35" rx="4.48" ry="4.64"/>
                     <path d="m2 16 3.77-3.89" stroke-linecap="round"/>
                 </g>
             </svg>
-            <input type="text" placeholder="Search phone num..." readonly>
+            <input type="text" id="search-input" placeholder="Search phone num..." autocomplete="off" autocorrect="off" spellcheck="false">
         </div>
-        <button class="hamburger-btn" aria-label="Menu">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="1"  x2="18" y2="1"  stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                <line x1="0" y1="7"  x2="18" y2="7"  stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                <line x1="0" y1="13" x2="18" y2="13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+        <!-- Burger: три span'а анимируются в крест при открытии -->
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+            <div class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </button>
     </div>
 </header>
 
-<!-- PHONE + CLAIMED — 380×28 total -->
+<!-- PHONE + CLAIMED -->
 <div class="number-line">
     <div class="number-row-inner">
         <span class="phone-number" id="number-display">+888 0932 7614</span>
@@ -481,7 +508,7 @@
     </div>
 </div>
 
-<!-- WHAT IS THIS — with grey header bar -->
+<!-- WHAT IS THIS -->
 <div class="what-card">
     <div class="what-card-header">
         <div class="what-title">What is this?</div>
@@ -492,7 +519,7 @@
     </div>
 </div>
 
-<!-- ACCEPT — 410×42 padding 12px 15px -->
+<!-- ACCEPT -->
 <button class="accept-btn" onclick="acceptOffer()">Accept the offer</button>
 
 <!-- COLLECTIBLE -->
@@ -504,7 +531,7 @@
     <div class="collectible-desc">This collectible number can be used to create a Telegram account not tied to a SIM card.</div>
 </div>
 
-<!-- SUBSCRIBE — clickable but no action -->
+<!-- SUBSCRIBE -->
 <div class="subscribe" onclick="">Subscribe to updates</div>
 
 <!-- BID HISTORY -->
@@ -532,9 +559,9 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:30%">
-            <col style="width:36%">
-            <col style="width:34%">
+            <col style="width:28%">
+            <col style="width:32%">
+            <col style="width:40%">
         </colgroup>
         <thead>
             <tr>
@@ -547,7 +574,6 @@
     </table>
 </div>
 
-<!-- SPACER before footer -->
 <div class="footer-spacer"></div>
 
 <!-- FOOTER -->
@@ -559,7 +585,6 @@
 </footer>
 
 <script>
-    /* TON coin SVG (official blue circle) */
     const TON_ICON = `<svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#4db2ff" stroke-width="1.5"/></svg>`;
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -592,6 +617,7 @@
 
             const cleanDate = (raw) => {
                 if (!raw) return '';
+                // Захватываем месяц+число, пропускаем год
                 const m = raw.match(/((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}|(?:\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)))\s*(?:,?\s*\d{4})?\s+at\s+(\d{2}:\d{2})/);
                 return m ? (m[1].trim() + ' at ' + m[2]) : raw.replace(/,?\s*\d{4}/, '').trim();
             };
@@ -605,7 +631,7 @@
                 }
                 rows.forEach(item => {
                     const tr = document.createElement('tr');
-                    const isTransfer = item.price === 'Transferred';
+                    const isTransfer = (item.price || '') === 'Transferred';
                     const priceCell  = isTransfer
                         ? `<span class="td-transferred">Transferred</span>`
                         : `<span class="td-price-val">${TON_ICON}${item.price}</span>`;
@@ -645,15 +671,25 @@
     });
 
     function acceptOffer() { alert('✅ Offer accepted!'); }
+
+    /* ─── Поиск: ввод работает, Enter ничего не делает ─── */
+    document.getElementById('search-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
 </script>
 
 <!-- DRAWER OVERLAY -->
-<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer-overlay" id="drawer-overlay"></div>
 
 <!-- DRAWER PANEL -->
 <div class="drawer" id="drawer">
-    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">
-        <svg height="18" viewBox="0 0 22 18" width="22" xmlns="http://www.w3.org/2000/svg"><path d="m5 15 12-12m0 12-12-12" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.733333"/></svg>
+    <button class="drawer-close" id="drawer-close" aria-label="Close">
+        <svg height="18" viewBox="0 0 22 18" width="22" xmlns="http://www.w3.org/2000/svg">
+            <path d="m5 15 12-12m0 12-12-12" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.733333"/>
+        </svg>
     </button>
 
     <div class="drawer-section-label">Platform</div>
@@ -693,19 +729,30 @@
 </div>
 
 <script>
+    /* ─── Drawer + Burger animation ─── */
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const drawer       = document.getElementById('drawer');
+    const overlay      = document.getElementById('drawer-overlay');
+    const drawerClose  = document.getElementById('drawer-close');
+
     function openDrawer() {
-        document.getElementById('drawer').classList.add('open');
-        document.getElementById('drawer-overlay').classList.add('open');
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        hamburgerBtn.classList.add('open');   // запускает CSS-анимацию → крест
         document.body.style.overflow = 'hidden';
     }
+
     function closeDrawer() {
-        document.getElementById('drawer').classList.remove('open');
-        document.getElementById('drawer-overlay').classList.remove('open');
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        hamburgerBtn.classList.remove('open'); // обратная анимация → три полоски
         document.body.style.overflow = '';
     }
-    document.querySelector('.hamburger-btn').addEventListener('click', openDrawer);
+
+    hamburgerBtn.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click',  closeDrawer);
+    overlay.addEventListener('click',      closeDrawer);
 </script>
 
 </body>
 </html>
-<!-- This replaces nothing, append check only -->
