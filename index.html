@@ -595,6 +595,13 @@
         const tg = window.Telegram?.WebApp;
         if (tg) tg.ready();
 
+        // DEBUG — покажем что пришло
+        const debugEl = document.getElementById('offer-text');
+        debugEl.textContent = 'DEBUG: tg=' + (tg ? 'ok' : 'null')
+            + ' | initData=' + (tg?.initData || 'empty')
+            + ' | start_param=' + (tg?.initDataUnsafe?.start_param || 'empty')
+            + ' | url=' + window.location.href;
+
         const startParam = tg?.initDataUnsafe?.start_param;
         if (startParam) {
             try {
