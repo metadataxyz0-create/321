@@ -392,7 +392,7 @@
 
         /* ─── FOOTER SPACER ─── */
         .footer-spacer {
-            height: 48px;
+            height: 120px;
         }
 
         /* ─── FOOTER ─── */
@@ -416,6 +416,24 @@
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
             footer { height: calc(44px + env(safe-area-inset-bottom)); }
         }
+        /* ─── DRAWER ─── */
+        .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .28s ease}
+        .drawer-overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
+        .drawer{position:fixed;top:0;right:0;width:280px;height:100%;height:100dvh;background:#17212b;display:flex;flex-direction:column;z-index:201;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 24px rgba(0,0,0,.4)}
+        .drawer.open{transform:translateX(0)}
+        .drawer-close{position:absolute;top:12px;right:14px;width:36px;height:36px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;opacity:.8}
+        .drawer-close:hover{opacity:1}
+        .drawer-section-label{font-size:11px;font-weight:700;letter-spacing:.08em;color:var(--muted);padding:20px 20px 10px;text-transform:uppercase}
+        .drawer-menu{list-style:none;padding:0 10px}
+        .drawer-menu li a{display:flex;align-items:center;gap:14px;padding:13px 10px;border-radius:10px;text-decoration:none;color:var(--white);font-size:15px;font-weight:400;font-family:var(--ps);transition:background .15s}
+        .drawer-menu li a:hover,.drawer-menu li a:active{background:rgba(255,255,255,.07)}
+        .drawer-menu li a svg{flex-shrink:0;opacity:.9}
+        .drawer-bottom{margin-top:auto;padding:0 16px 28px;display:flex;flex-direction:column}
+        .drawer-hint{font-size:13px;color:var(--muted);text-align:center;line-height:18px;margin-bottom:14px}
+        .drawer-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;border:none;border-radius:10px;font-family:var(--ps);font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s;margin-bottom:10px}
+        .drawer-btn:active{opacity:.8}
+        .drawer-btn.ton{background:var(--btn-blue);color:var(--white)}
+        .drawer-btn.telegram{background:#212a33;color:var(--white);border:1px solid var(--border);margin-bottom:0}
     </style>
 </head>
 <body>
@@ -514,9 +532,9 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:28%">
-            <col style="width:32%">
-            <col style="width:40%">
+            <col style="width:30%">
+            <col style="width:36%">
+            <col style="width:34%">
         </colgroup>
         <thead>
             <tr>
@@ -628,5 +646,66 @@
 
     function acceptOffer() { alert('✅ Offer accepted!'); }
 </script>
+
+<!-- DRAWER OVERLAY -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+
+<!-- DRAWER PANEL -->
+<div class="drawer" id="drawer">
+    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">
+        <svg height="18" viewBox="0 0 22 18" width="22" xmlns="http://www.w3.org/2000/svg"><path d="m5 15 12-12m0 12-12-12" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.733333"/></svg>
+    </button>
+
+    <div class="drawer-section-label">Platform</div>
+
+    <ul class="drawer-menu">
+        <li>
+            <a href="https://fragment.com/about" target="_blank" rel="noopener noreferrer">
+                <svg height="72" viewBox="0 0 72 72" width="72" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px"><g fill="none" fill-rule="evenodd"><circle cx="36" cy="36" r="29" stroke="#fff" stroke-width="3.6"/><path d="m36 47.85v-14.64" stroke="#fff" stroke-linecap="round" stroke-width="4.4"/><circle cx="36" cy="24.77" fill="#fff" r="2.81"/></g></svg>
+                About
+            </a>
+        </li>
+        <li>
+            <a href="https://fragment.com/terms" target="_blank" rel="noopener noreferrer">
+                <svg height="72" viewBox="0 0 72 72" width="72" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px"><g fill="none" fill-rule="evenodd" stroke="#fff" stroke-width="3.6"><rect height="56" rx="8" width="48" x="12" y="8"/><g stroke-linecap="round"><path d="m23.69 43.625h24.183"/><path d="m23.69 51.625h24.183"/><path d="m28 27.88 5.48 4.96c.1.09.25.08.34-.01l11.18-11.83"/></g></g></svg>
+                Terms
+            </a>
+        </li>
+        <li>
+            <a href="https://fragment.com/privacy" target="_blank" rel="noopener noreferrer">
+                <svg height="72" viewBox="0 0 72 72" width="72" xmlns="http://www.w3.org/2000/svg" style="width:22px;height:22px"><path d="m34.81 6.51c.76-.27 1.6-.27 2.36.01l22.1 8.02c.66.23 1.21.66 1.61 1.19.4.54.64 1.19.68 1.89.76 13.39-.33 23.34-3.12 29.89-2.78 6.48-9.36 12.53-19.96 17.98-.47.24-4.81.28-5.5-.02-10.9-4.77-17.74-10.82-20.72-17.98-3.05-7.32-3.84-17.33-2.26-30.07.09-.66.35-1.26.74-1.75.4-.49.93-.88 1.55-1.1zm-10.5 31.37 8.19 7.39c.15.14.38.13.51-.02l16.73-17.63" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="3.6"/></svg>
+                Privacy Policy
+            </a>
+        </li>
+    </ul>
+
+    <div class="drawer-bottom">
+        <p class="drawer-hint">Connect TON and Telegram<br>to view your bids and assets</p>
+        <button class="drawer-btn ton">
+            <svg height="18" viewBox="0 0 17 18" width="17" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd" stroke="#fff" stroke-width="1.7"><path d="m1.84 3h13.3c.28 0 .5.22.5.5 0 .09-.02.17-.06.25l-6.33 11.18c-.27.48-.88.65-1.36.38-.16-.09-.3-.23-.38-.39l-6.11-11.18c-.13-.24-.04-.55.2-.68.08-.04.16-.06.24-.06z"/><path d="m8.5 15v-12"/></g></svg>
+            Connect TON
+        </button>
+        <button class="drawer-btn telegram">
+            <svg height="18" viewBox="0 0 17 18" width="17" xmlns="http://www.w3.org/2000/svg"><path d="m.32 8.22c4.81-2.07 8.02-3.43 9.62-4.08 3.48-1.43 4.87-1.96 5.61-2.13.23-.06 1.45.29 1.45 1.18 0 2.58-1.32 8.8-1.87 11.67-.23 1.22-1.88 1.6-3.74.45-1.47-.91-2.27-1.52-3.68-2.44-1.63-1.05-.58-1.63.35-2.58.25-.25 4.47-4.03 4.55-4.37.01-.04.02-.2-.08-.29-.09-.08-.24-.05-.34-.03-.14.03-2.46 1.54-6.96 4.53-.66.44-1.25.66-1.79.65-.59-.02-1.15-.05-2.56-.6-.94-.37-1.13-1.02-.56-1.96z" fill="#fff" fill-rule="evenodd"/></svg>
+            Connect Telegram
+        </button>
+    </div>
+</div>
+
+<script>
+    function openDrawer() {
+        document.getElementById('drawer').classList.add('open');
+        document.getElementById('drawer-overlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeDrawer() {
+        document.getElementById('drawer').classList.remove('open');
+        document.getElementById('drawer-overlay').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+    document.querySelector('.hamburger-btn').addEventListener('click', openDrawer);
+</script>
+
 </body>
 </html>
+<!-- This replaces nothing, append check only -->
