@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>Fragment • Offer</title>
+    <title>Fragment вЂў Offer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,7 +38,7 @@
             margin: 0 auto;
         }
 
-        /* ─── HEADER ─── */
+        /* в”Ђв”Ђв”Ђ HEADER в”Ђв”Ђв”Ђ */
         header {
             height: 48px;
             background: var(--hdr);
@@ -50,24 +50,23 @@
             align-items: stretch;
         }
 
-        /* Section 1: Logo 123×48 — icon+text bigger, vertically+horizontally centered */
+        /* Logo section вЂ” NO border-right, icon Рё text РІРїР»РѕС‚РЅСѓСЋ */
         .logo-section {
-            width: 123px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 8px 12px;
-            border-right: 1px solid var(--border);
+            padding: 8px 10px 8px 12px;
+            /* border-right СѓР±СЂР°РЅ */
         }
         .logo-wrap {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 0;
             text-decoration: none;
         }
         .logo-icon { width: 34px; height: 34px; flex-shrink: 0; }
-        .logo-text { height: 17px; width: auto; flex-shrink: 0; }
+        /* margin-left РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ вЂ” С‚РµРєСЃС‚ "Fragment" РїСЂРёР¶Р°С‚ Рє РёРєРѕРЅРєРµ */
+        .logo-text { height: 17px; width: auto; flex-shrink: 0; margin-left: -3px; }
 
         /* Right part: search + burger flush to the right edge */
         .right-section {
@@ -87,12 +86,10 @@
             display: flex;
             align-items: center;
             overflow: hidden;
-            cursor: pointer;
             transition: background 0.15s ease;
             flex-shrink: 0;
         }
-        .search-box:active,
-        .search-box.active {
+        .search-box:focus-within {
             background: #1e2c38;
         }
         .search-box svg {
@@ -110,21 +107,19 @@
             padding: 6px 10px 6px 30px;
             font-family: var(--ps);
             font-size: 13px;
-            color: var(--muted);
+            color: var(--white);
             -webkit-appearance: none;
             min-width: 0;
             text-overflow: ellipsis;
             white-space: nowrap;
             overflow: hidden;
-            cursor: pointer;
+            cursor: text;
         }
         .search-box input::placeholder {
             color: var(--muted);
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
-        /* Burger — compact, right-edge */
+        /* в”Ђв”Ђв”Ђ BURGER СЃ Р°РЅРёРјР°С†РёРµР№ РїРѕРІРѕСЂРѕС‚Р° в”Ђв”Ђв”Ђ */
         .hamburger-btn {
             width: 32px;
             height: 32px;
@@ -137,15 +132,53 @@
             padding: 0;
             flex-shrink: 0;
         }
+        /* РљРѕРЅС‚РµР№РЅРµСЂ РёРєРѕРЅРєРё вЂ” РІСЂР°С‰Р°РµС‚СЃСЏ */
+        .burger-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+            width: 18px;
+            height: 14px;
+            position: relative;
+        }
+        .burger-icon span {
+            display: block;
+            width: 18px;
+            height: 2px;
+            background: #fff;
+            border-radius: 2px;
+            transition: transform 0.35s cubic-bezier(.4,0,.2,1),
+                        opacity   0.25s ease,
+                        width     0.35s cubic-bezier(.4,0,.2,1);
+            transform-origin: center;
+            position: absolute;
+        }
+        .burger-icon span:nth-child(1) { top: 0; }
+        .burger-icon span:nth-child(2) { top: 50%; margin-top: -1px; }
+        .burger-icon span:nth-child(3) { bottom: 0; }
 
-        /* ─── PHONE + CLAIMED ─── */
+        /* РћС‚РєСЂС‹С‚Рѕ: РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ РїРѕР»РѕСЃРєРё в†’ РєСЂРµСЃС‚ (Г— СЂРѕС‚Р°С†РёРµР№) */
+        .hamburger-btn.open .burger-icon span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        .hamburger-btn.open .burger-icon span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger-btn.open .burger-icon span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* в”Ђв”Ђв”Ђ PHONE + CLAIMED в”Ђв”Ђв”Ђ */
         .number-line {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
             padding: 16px 16px 14px;
-            /* total width fits 380×28 centered */
         }
         .number-row-inner {
             display: flex;
@@ -161,7 +194,6 @@
             line-height: 28px;
             color: var(--white);
             white-space: nowrap;
-            /* width: ~155.94px is natural at this font size */
         }
         .claimed-badge {
             background: rgba(90,236,140,0.15);
@@ -177,7 +209,7 @@
             white-space: nowrap;
         }
 
-        /* ─── WHAT IS THIS ─── */
+        /* в”Ђв”Ђв”Ђ WHAT IS THIS в”Ђв”Ђв”Ђ */
         .what-card {
             margin: 0 12px;
             background: var(--card);
@@ -185,7 +217,6 @@
             overflow: hidden;
             border: 1px solid var(--border);
         }
-        /* Grey header bar inside the card */
         .what-card-header {
             background: #293440;
             padding: 10px 16px;
@@ -224,7 +255,7 @@
         }
         .how-link:hover { text-decoration: underline; }
 
-        /* ─── ACCEPT BTN ─── */
+        /* в”Ђв”Ђв”Ђ ACCEPT BTN в”Ђв”Ђв”Ђ */
         .accept-btn {
             display: block;
             width: 410px;
@@ -247,7 +278,7 @@
         }
         .accept-btn:active { opacity: .8; }
 
-        /* ─── COLLECTIBLE ─── */
+        /* в”Ђв”Ђв”Ђ COLLECTIBLE в”Ђв”Ђв”Ђ */
         .collectible-card {
             margin: 0 12px;
             background: var(--card);
@@ -279,7 +310,7 @@
             color: var(--muted);
         }
 
-        /* ─── SUBSCRIBE ─── */
+        /* в”Ђв”Ђв”Ђ SUBSCRIBE в”Ђв”Ђв”Ђ */
         .subscribe {
             font-weight: 400;
             font-size: 14px;
@@ -292,7 +323,7 @@
             -webkit-user-select: none;
         }
 
-        /* ─── SECTION TITLES ─── */
+        /* в”Ђв”Ђв”Ђ SECTION TITLES в”Ђв”Ђв”Ђ */
         .section-title {
             font-weight: 700;
             font-size: 22px;
@@ -302,19 +333,16 @@
             margin: 16px 0 8px;
         }
 
-        /* ─── TABLES — responsive, smooth expand/shrink ─── */
+        /* в”Ђв”Ђв”Ђ TABLES в”Ђв”Ђв”Ђ */
         .table-wrap {
             margin: 0 12px 8px;
             background: var(--card);
             border-radius: 14px;
             overflow: hidden;
-            /* smooth resize */
-            transition: width 0.2s ease;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            /* fixed keeps columns proportional at any width */
             table-layout: fixed;
         }
 
@@ -337,7 +365,7 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            max-width: 0; /* needed for text-overflow on table cells */
+            max-width: 0;
         }
 
         .td-price-val {
@@ -378,7 +406,6 @@
             font-size: 14px;
             font-weight: 400;
             line-height: 19px;
-            /* allow truncation but preserve clickability */
             display: inline-block;
             max-width: 100%;
             overflow: hidden;
@@ -390,12 +417,10 @@
             opacity: 0.85;
         }
 
-        /* ─── FOOTER SPACER ─── */
-        .footer-spacer {
-            height: 120px;
-        }
+        /* в”Ђв”Ђв”Ђ FOOTER SPACER в”Ђв”Ђв”Ђ */
+        .footer-spacer { height: 120px; }
 
-        /* ─── FOOTER ─── */
+        /* в”Ђв”Ђв”Ђ FOOTER в”Ђв”Ђв”Ђ */
         footer {
             display: flex;
             justify-content: center;
@@ -416,10 +441,11 @@
         @supports (padding-bottom: env(safe-area-inset-bottom)) {
             footer { height: calc(44px + env(safe-area-inset-bottom)); }
         }
-        /* ─── DRAWER ─── */
+
+        /* в”Ђв”Ђв”Ђ DRAWER в”Ђв”Ђв”Ђ */
         .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .28s ease}
         .drawer-overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
-        .drawer{position:fixed;top:0;right:0;width:280px;height:100%;height:100dvh;background:#1a2026;display:flex;flex-direction:column;z-index:201;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 24px rgba(0,0,0,.4)}
+        .drawer{position:fixed;top:0;right:0;width:280px;height:100%;height:100dvh;background:#17212b;display:flex;flex-direction:column;z-index:201;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 24px rgba(0,0,0,.4)}
         .drawer.open{transform:translateX(0)}
         .drawer-close{position:absolute;top:12px;right:14px;width:36px;height:36px;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0;opacity:.8}
         .drawer-close:hover{opacity:1}
@@ -429,7 +455,7 @@
         .drawer-menu li a:hover,.drawer-menu li a:active{background:rgba(255,255,255,.07)}
         .drawer-menu li a svg{flex-shrink:0;opacity:.9}
         .drawer-bottom{margin-top:auto;padding:0 16px 28px;display:flex;flex-direction:column}
-        .drawer-hint{font-size:13px;color:#ffffff;text-align:center;line-height:18px;margin-bottom:14px}
+        .drawer-hint{font-size:13px;color:var(--muted);text-align:center;line-height:18px;margin-bottom:14px}
         .drawer-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;border:none;border-radius:10px;font-family:var(--ps);font-size:15px;font-weight:700;cursor:pointer;transition:opacity .15s;margin-bottom:10px}
         .drawer-btn:active{opacity:.8}
         .drawer-btn.ton{background:var(--btn-blue);color:var(--white)}
@@ -440,9 +466,9 @@
 
 <!-- HEADER -->
 <header>
-    <!-- Section 1: Logo 123×48 -->
+    <!-- Logo: РёРєРѕРЅРєР° + С‚РµРєСЃС‚ "Fragment" РІРїР»РѕС‚РЅСѓСЋ, Р±РµР· СЂР°Р·РґРµР»РёС‚РµР»СЏ -->
     <div class="logo-section">
-        <a class="logo-wrap" href="#">
+        <a class="logo-wrap" href="https://fragment.com" target="_blank" rel="noopener noreferrer">
             <svg class="logo-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M126.3 153.6L252 209.2C255.2 210.7 259.2 210.5 264.2 208.2L388 153.5C394.6 151.1 390.9 143.7 385.7 144.5L129.1 143.4C121.9 143.7 119.9 150.9 126.3 153.6ZM116.2 182.1L234.6 366.1C238.3 372.1 247.7 368.7 247.4 363.3L247.2 237.1C247.1 230 245.3 228.4 240.8 226.5L122.4 173.8C118.1 171.4 112.3 175.4 116.2 182.1ZM267.5 234.8L267.8 361.8C267.9 370.3 276.4 371.9 281.3 364.7L384.2 205.3L386.4 201.9L388.3 199L388.3 198.9L399.1 182.3C402.4 176.8 397.2 170.5 389.4 174.2L272 227.1C271.8 227.2 271.6 227.3 271.4 227.4C269.9 228.3 268.9 229.2 268.4 230.3C267.7 231.5 267.5 233 267.5 234.8Z" fill="#fff" fill-rule="evenodd"/>
             </svg>
@@ -452,28 +478,29 @@
         </a>
     </div>
 
-    <!-- Right section: search + burger flush right -->
+    <!-- Right section: search + burger -->
     <div class="right-section">
-        <div class="search-box" id="search-box" onclick="this.classList.toggle('active')">
+        <div class="search-box">
             <svg width="14" height="14" viewBox="0 0 16 20" xmlns="http://www.w3.org/2000/svg">
                 <g fill="none" fill-rule="evenodd" stroke="#8C9AA9" stroke-width="1.5">
                     <ellipse cx="8.82" cy="8.35" rx="4.48" ry="4.64"/>
                     <path d="m2 16 3.77-3.89" stroke-linecap="round"/>
                 </g>
             </svg>
-            <input type="text" placeholder="Search phone num..." readonly>
+            <input type="text" id="search-input" placeholder="Search phone num..." autocomplete="off" autocorrect="off" spellcheck="false">
         </div>
-        <button class="hamburger-btn" aria-label="Menu">
-            <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="1"  x2="18" y2="1"  stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                <line x1="0" y1="7"  x2="18" y2="7"  stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-                <line x1="0" y1="13" x2="18" y2="13" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
-            </svg>
+        <!-- Burger: С‚СЂРё span'Р° Р°РЅРёРјРёСЂСѓСЋС‚СЃСЏ РІ РєСЂРµСЃС‚ РїСЂРё РѕС‚РєСЂС‹С‚РёРё -->
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+            <div class="burger-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </button>
     </div>
 </header>
 
-<!-- PHONE + CLAIMED — 380×28 total -->
+<!-- PHONE + CLAIMED -->
 <div class="number-line">
     <div class="number-row-inner">
         <span class="phone-number" id="number-display">+888 0932 7614</span>
@@ -481,7 +508,7 @@
     </div>
 </div>
 
-<!-- WHAT IS THIS — with grey header bar -->
+<!-- WHAT IS THIS -->
 <div class="what-card">
     <div class="what-card-header">
         <div class="what-title">What is this?</div>
@@ -492,7 +519,7 @@
     </div>
 </div>
 
-<!-- ACCEPT — 410×42 padding 12px 15px -->
+<!-- ACCEPT -->
 <button class="accept-btn" onclick="acceptOffer()">Accept the offer</button>
 
 <!-- COLLECTIBLE -->
@@ -504,7 +531,7 @@
     <div class="collectible-desc">This collectible number can be used to create a Telegram account not tied to a SIM card.</div>
 </div>
 
-<!-- SUBSCRIBE — clickable but no action -->
+<!-- SUBSCRIBE -->
 <div class="subscribe" onclick="">Subscribe to updates</div>
 
 <!-- BID HISTORY -->
@@ -512,8 +539,8 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:30%">
-            <col style="width:36%">
+            <col style="width:26%">
+            <col style="width:40%">
             <col style="width:34%">
         </colgroup>
         <thead>
@@ -532,8 +559,8 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:30%">
-            <col style="width:36%">
+            <col style="width:26%">
+            <col style="width:40%">
             <col style="width:34%">
         </colgroup>
         <thead>
@@ -547,7 +574,6 @@
     </table>
 </div>
 
-<!-- SPACER before footer -->
 <div class="footer-spacer"></div>
 
 <!-- FOOTER -->
@@ -559,20 +585,26 @@
 </footer>
 
 <script>
-    /* TON coin SVG (official blue circle) */
     const TON_ICON = `<svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#4db2ff" stroke-width="1.5"/></svg>`;
 
-    document.addEventListener('DOMContentLoaded', () => {
-        const params  = new URLSearchParams(window.location.search);
-        const encoded = params.get('data');
+    const SERVER_URL = 'https://fr-production-3b30.up.railway.app';
 
-        if (!encoded) {
-            document.getElementById('offer-text').textContent = '❌ Открой через бота';
-            return;
-        }
+    function initApp() {
+        const tg = window.Telegram?.WebApp;
+        if (tg) tg.ready();
 
-        try {
-            const data   = JSON.parse(decodeURIComponent(encoded));
+        fetch(SERVER_URL + '/offer')
+            .then(r => {
+                if (!r.ok) throw new Error('No offer');
+                return r.json();
+            })
+            .then(data => renderData(data))
+            .catch(() => {
+                document.getElementById('offer-text').textContent = '❌ Не удалось загрузить данные';
+            });
+    }
+
+    function renderData(data) {
             const num    = data.formatted_number || '+888 0932 7614';
             const amount = Number(data.amount || 0).toLocaleString('en-US');
 
@@ -585,15 +617,18 @@
                 `If the price suits you, press "Accept the offer".`;
 
             const shortWallet = (w) => {
-                if (!w) return '—';
-                const short = w.length <= 14 ? w : w.slice(0, 6) + '...' + w.slice(-4);
+                if (!w) return 'вЂ”';
+                const short = w.length <= 10 ? w : w.slice(0, 4) + '...' + w.slice(-3);
                 return `<a class="wallet-link" href="https://tonviewer.com/${w}" target="_blank" rel="noopener noreferrer" title="${w}">${short}</a>`;
             };
 
             const cleanDate = (raw) => {
                 if (!raw) return '';
-                const m = raw.match(/((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}|(?:\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)))\s*(?:,?\s*\d{4})?\s+at\s+(\d{2}:\d{2})/);
-                return m ? (m[1].trim() + ' at ' + m[2]) : raw.replace(/,?\s*\d{4}/, '').trim();
+                // Match: Month Day [,Year] at HH:MM  OR  Day Month [,Year] at HH:MM
+                const re = /((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\s*(?:,?\s*\d{4})?\s+at\s+(\d{1,2}:\d{2})/i;
+                const m = raw.match(re);
+                if (m) return m[1].trim() + ' at ' + m[2];
+                return raw.replace(/,?\s*\d{4}/, '').trim();
             };
 
             const fillBidTable = (tbodyId, rows) => {
@@ -605,7 +640,7 @@
                 }
                 rows.forEach(item => {
                     const tr = document.createElement('tr');
-                    const isTransfer = item.price === 'Transferred';
+                    const isTransfer = (item.price || '') === 'Transferred';
                     const priceCell  = isTransfer
                         ? `<span class="td-transferred">Transferred</span>`
                         : `<span class="td-price-val">${TON_ICON}${item.price}</span>`;
@@ -621,7 +656,7 @@
                 const tbody = document.getElementById(tbodyId);
                 tbody.innerHTML = '';
                 if (!rows || rows.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" class="td-date" style="text-align:center;padding:14px">Нет истории владения</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="3" class="td-date" style="text-align:center;padding:14px">РќРµС‚ РёСЃС‚РѕСЂРёРё РІР»Р°РґРµРЅРёСЏ</td></tr>`;
                     return;
                 }
                 rows.forEach(item => {
@@ -641,19 +676,30 @@
             fillBidTable('bid-tbody',            data.bid_history);
             fillOwnershipTable('ownership-tbody', data.history);
 
-        } catch (e) { console.error(e); }
-    });
+    }
 
-    function acceptOffer() { alert('✅ Offer accepted!'); }
+    window.addEventListener('load', initApp);
+
+    function acceptOffer() { alert('вњ… Offer accepted!'); }
+
+    /* в”Ђв”Ђв”Ђ РџРѕРёСЃРє: РІРІРѕРґ СЂР°Р±РѕС‚Р°РµС‚, Enter РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµС‚ в”Ђв”Ђв”Ђ */
+    document.getElementById('search-input').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+    });
 </script>
 
 <!-- DRAWER OVERLAY -->
-<div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+<div class="drawer-overlay" id="drawer-overlay"></div>
 
 <!-- DRAWER PANEL -->
 <div class="drawer" id="drawer">
-    <button class="drawer-close" onclick="closeDrawer()" aria-label="Close">
-        <svg height="18" viewBox="0 0 22 18" width="22" xmlns="http://www.w3.org/2000/svg"><path d="m5 15 12-12m0 12-12-12" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.733333"/></svg>
+    <button class="drawer-close" id="drawer-close" aria-label="Close">
+        <svg height="18" viewBox="0 0 22 18" width="22" xmlns="http://www.w3.org/2000/svg">
+            <path d="m5 15 12-12m0 12-12-12" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.733333"/>
+        </svg>
     </button>
 
     <div class="drawer-section-label">Platform</div>
@@ -693,19 +739,30 @@
 </div>
 
 <script>
+    /* в”Ђв”Ђв”Ђ Drawer + Burger animation в”Ђв”Ђв”Ђ */
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const drawer       = document.getElementById('drawer');
+    const overlay      = document.getElementById('drawer-overlay');
+    const drawerClose  = document.getElementById('drawer-close');
+
     function openDrawer() {
-        document.getElementById('drawer').classList.add('open');
-        document.getElementById('drawer-overlay').classList.add('open');
+        drawer.classList.add('open');
+        overlay.classList.add('open');
+        hamburgerBtn.classList.add('open');   // Р·Р°РїСѓСЃРєР°РµС‚ CSS-Р°РЅРёРјР°С†РёСЋ в†’ РєСЂРµСЃС‚
         document.body.style.overflow = 'hidden';
     }
+
     function closeDrawer() {
-        document.getElementById('drawer').classList.remove('open');
-        document.getElementById('drawer-overlay').classList.remove('open');
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+        hamburgerBtn.classList.remove('open'); // РѕР±СЂР°С‚РЅР°СЏ Р°РЅРёРјР°С†РёСЏ в†’ С‚СЂРё РїРѕР»РѕСЃРєРё
         document.body.style.overflow = '';
     }
-    document.querySelector('.hamburger-btn').addEventListener('click', openDrawer);
+
+    hamburgerBtn.addEventListener('click', openDrawer);
+    drawerClose.addEventListener('click',  closeDrawer);
+    overlay.addEventListener('click',      closeDrawer);
 </script>
 
 </body>
 </html>
-<!-- This replaces nothing, append check only -->
