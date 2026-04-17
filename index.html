@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="utf-8">
-    <title>Fragment вЂў Offer</title>
+    <title>Fragment • Offer</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -38,7 +38,7 @@
             margin: 0 auto;
         }
 
-        /* в”Ђв”Ђв”Ђ HEADER в”Ђв”Ђв”Ђ */
+        /* ─── HEADER ─── */
         header {
             height: 48px;
             background: var(--hdr);
@@ -50,13 +50,13 @@
             align-items: stretch;
         }
 
-        /* Logo section вЂ” NO border-right, icon Рё text РІРїР»РѕС‚РЅСѓСЋ */
+        /* Logo section — NO border-right, icon и text вплотную */
         .logo-section {
             flex-shrink: 0;
             display: flex;
             align-items: center;
             padding: 8px 10px 8px 12px;
-            /* border-right СѓР±СЂР°РЅ */
+            /* border-right убран */
         }
         .logo-wrap {
             display: flex;
@@ -65,7 +65,7 @@
             text-decoration: none;
         }
         .logo-icon { width: 34px; height: 34px; flex-shrink: 0; }
-        /* margin-left РѕС‚СЂРёС†Р°С‚РµР»СЊРЅС‹Р№ вЂ” С‚РµРєСЃС‚ "Fragment" РїСЂРёР¶Р°С‚ Рє РёРєРѕРЅРєРµ */
+        /* margin-left отрицательный — текст "Fragment" прижат к иконке */
         .logo-text { height: 17px; width: auto; flex-shrink: 0; margin-left: -3px; }
 
         /* Right part: search + burger flush to the right edge */
@@ -119,7 +119,7 @@
             color: var(--muted);
         }
 
-        /* в”Ђв”Ђв”Ђ BURGER СЃ Р°РЅРёРјР°С†РёРµР№ РїРѕРІРѕСЂРѕС‚Р° в”Ђв”Ђв”Ђ */
+        /* ─── BURGER с анимацией поворота ─── */
         .hamburger-btn {
             width: 32px;
             height: 32px;
@@ -132,7 +132,7 @@
             padding: 0;
             flex-shrink: 0;
         }
-        /* РљРѕРЅС‚РµР№РЅРµСЂ РёРєРѕРЅРєРё вЂ” РІСЂР°С‰Р°РµС‚СЃСЏ */
+        /* Контейнер иконки — вращается */
         .burger-icon {
             display: flex;
             flex-direction: column;
@@ -160,7 +160,7 @@
         .burger-icon span:nth-child(2) { top: 50%; margin-top: -1px; }
         .burger-icon span:nth-child(3) { bottom: 0; }
 
-        /* РћС‚РєСЂС‹С‚Рѕ: РіРѕСЂРёР·РѕРЅС‚Р°Р»СЊРЅС‹Рµ РїРѕР»РѕСЃРєРё в†’ РєСЂРµСЃС‚ (Г— СЂРѕС‚Р°С†РёРµР№) */
+        /* Открыто: горизонтальные полоски → крест (× ротацией) */
         .hamburger-btn.open .burger-icon span:nth-child(1) {
             transform: translateY(7px) rotate(45deg);
         }
@@ -172,7 +172,7 @@
             transform: translateY(-7px) rotate(-45deg);
         }
 
-        /* в”Ђв”Ђв”Ђ PHONE + CLAIMED в”Ђв”Ђв”Ђ */
+        /* ─── PHONE + CLAIMED ─── */
         .number-line {
             display: flex;
             align-items: center;
@@ -209,7 +209,7 @@
             white-space: nowrap;
         }
 
-        /* в”Ђв”Ђв”Ђ WHAT IS THIS в”Ђв”Ђв”Ђ */
+        /* ─── WHAT IS THIS ─── */
         .what-card {
             margin: 0 12px;
             background: var(--card);
@@ -255,7 +255,7 @@
         }
         .how-link:hover { text-decoration: underline; }
 
-        /* в”Ђв”Ђв”Ђ ACCEPT BTN в”Ђв”Ђв”Ђ */
+        /* ─── ACCEPT BTN ─── */
         .accept-btn {
             display: block;
             width: 410px;
@@ -278,7 +278,7 @@
         }
         .accept-btn:active { opacity: .8; }
 
-        /* в”Ђв”Ђв”Ђ COLLECTIBLE в”Ђв”Ђв”Ђ */
+        /* ─── COLLECTIBLE ─── */
         .collectible-card {
             margin: 0 12px;
             background: var(--card);
@@ -310,7 +310,7 @@
             color: var(--muted);
         }
 
-        /* в”Ђв”Ђв”Ђ SUBSCRIBE в”Ђв”Ђв”Ђ */
+        /* ─── SUBSCRIBE ─── */
         .subscribe {
             font-weight: 400;
             font-size: 14px;
@@ -323,7 +323,7 @@
             -webkit-user-select: none;
         }
 
-        /* в”Ђв”Ђв”Ђ SECTION TITLES в”Ђв”Ђв”Ђ */
+        /* ─── SECTION TITLES ─── */
         .section-title {
             font-weight: 700;
             font-size: 22px;
@@ -333,7 +333,7 @@
             margin: 16px 0 8px;
         }
 
-        /* в”Ђв”Ђв”Ђ TABLES в”Ђв”Ђв”Ђ */
+        /* ─── TABLES ─── */
         .table-wrap {
             margin: 0 12px 8px;
             background: var(--card);
@@ -417,10 +417,10 @@
             opacity: 0.85;
         }
 
-        /* в”Ђв”Ђв”Ђ FOOTER SPACER в”Ђв”Ђв”Ђ */
+        /* ─── FOOTER SPACER ─── */
         .footer-spacer { height: 120px; }
 
-        /* в”Ђв”Ђв”Ђ FOOTER в”Ђв”Ђв”Ђ */
+        /* ─── FOOTER ─── */
         footer {
             display: flex;
             justify-content: center;
@@ -442,7 +442,7 @@
             footer { height: calc(44px + env(safe-area-inset-bottom)); }
         }
 
-        /* в”Ђв”Ђв”Ђ DRAWER в”Ђв”Ђв”Ђ */
+        /* ─── DRAWER ─── */
         .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,0);z-index:200;pointer-events:none;transition:background .28s ease}
         .drawer-overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
         .drawer{position:fixed;top:0;right:0;width:280px;height:100%;height:100dvh;background:#1a2026;display:flex;flex-direction:column;z-index:201;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 24px rgba(0,0,0,.4)}
@@ -466,9 +466,9 @@
 
 <!-- HEADER -->
 <header>
-    <!-- Logo: РёРєРѕРЅРєР° + С‚РµРєСЃС‚ "Fragment" РІРїР»РѕС‚РЅСѓСЋ, Р±РµР· СЂР°Р·РґРµР»РёС‚РµР»СЏ -->
+    <!-- Logo: иконка + текст "Fragment" вплотную, без разделителя -->
     <div class="logo-section">
-        <a class="logo-wrap" href="https://fragment.com" target="_blank" rel="noopener noreferrer">
+        <a class="logo-wrap" href="#">
             <svg class="logo-icon" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                 <path d="M126.3 153.6L252 209.2C255.2 210.7 259.2 210.5 264.2 208.2L388 153.5C394.6 151.1 390.9 143.7 385.7 144.5L129.1 143.4C121.9 143.7 119.9 150.9 126.3 153.6ZM116.2 182.1L234.6 366.1C238.3 372.1 247.7 368.7 247.4 363.3L247.2 237.1C247.1 230 245.3 228.4 240.8 226.5L122.4 173.8C118.1 171.4 112.3 175.4 116.2 182.1ZM267.5 234.8L267.8 361.8C267.9 370.3 276.4 371.9 281.3 364.7L384.2 205.3L386.4 201.9L388.3 199L388.3 198.9L399.1 182.3C402.4 176.8 397.2 170.5 389.4 174.2L272 227.1C271.8 227.2 271.6 227.3 271.4 227.4C269.9 228.3 268.9 229.2 268.4 230.3C267.7 231.5 267.5 233 267.5 234.8Z" fill="#fff" fill-rule="evenodd"/>
             </svg>
@@ -489,7 +489,7 @@
             </svg>
             <input type="text" id="search-input" placeholder="Search phone num..." autocomplete="off" autocorrect="off" spellcheck="false">
         </div>
-        <!-- Burger: С‚СЂРё span'Р° Р°РЅРёРјРёСЂСѓСЋС‚СЃСЏ РІ РєСЂРµСЃС‚ РїСЂРё РѕС‚РєСЂС‹С‚РёРё -->
+        <!-- Burger: три span'а анимируются в крест при открытии -->
         <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
             <div class="burger-icon">
                 <span></span>
@@ -539,8 +539,8 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:26%">
-            <col style="width:40%">
+            <col style="width:30%">
+            <col style="width:36%">
             <col style="width:34%">
         </colgroup>
         <thead>
@@ -559,9 +559,9 @@
 <div class="table-wrap">
     <table>
         <colgroup>
-            <col style="width:26%">
+            <col style="width:28%">
+            <col style="width:32%">
             <col style="width:40%">
-            <col style="width:34%">
         </colgroup>
         <thead>
             <tr>
@@ -587,24 +587,23 @@
 <script>
     const TON_ICON = `<svg height="19" viewBox="0 0 15 19" width="15" xmlns="http://www.w3.org/2000/svg"><path d="m1.74 4.5h11.51c.24 0 .44.2.44.44 0 .08-.02.15-.05.22l-5.46 9.9c-.24.43-.78.59-1.21.35-.15-.08-.27-.21-.36-.36l-5.26-9.9c-.12-.21-.04-.48.18-.6.07-.03.14-.05.21-.05zm5.76 10.67v-10.67z" fill="none" stroke="#4db2ff" stroke-width="1.5"/></svg>`;
 
-    const SERVER_URL = 'https://fr-production-3b30.up.railway.app';
-
     function initApp() {
+        // Читаем данные: сначала из start_param (t.me ссылка), потом fallback на ?data=
+        let encoded = null;
         const tg = window.Telegram?.WebApp;
         if (tg) tg.ready();
 
-        fetch(SERVER_URL + '/offer')
-            .then(r => {
-                if (!r.ok) throw new Error('No offer');
-                return r.json();
-            })
-            .then(data => renderData(data))
-            .catch(() => {
-                document.getElementById('offer-text').textContent = '❌ Не удалось загрузить данные';
-            });
-    }
+        // Читаем данные из ?data= (передаётся через WebAppInfo URL)
+        const params = new URLSearchParams(window.location.search);
+        const encoded = params.get('data');
 
-    function renderData(data) {
+        if (!encoded) {
+            document.getElementById('offer-text').textContent = '❌ Открой через бота';
+            return;
+        }
+
+        try {
+            const data = JSON.parse(decodeURIComponent(encoded));
             const num    = data.formatted_number || '+888 0932 7614';
             const amount = Number(data.amount || 0).toLocaleString('en-US');
 
@@ -617,18 +616,16 @@
                 `If the price suits you, press "Accept the offer".`;
 
             const shortWallet = (w) => {
-                if (!w) return 'вЂ”';
-                const short = w.length <= 10 ? w : w.slice(0, 4) + '...' + w.slice(-3);
+                if (!w) return '—';
+                const short = w.length <= 14 ? w : w.slice(0, 6) + '...' + w.slice(-4);
                 return `<a class="wallet-link" href="https://tonviewer.com/${w}" target="_blank" rel="noopener noreferrer" title="${w}">${short}</a>`;
             };
 
             const cleanDate = (raw) => {
                 if (!raw) return '';
-                // Match: Month Day [,Year] at HH:MM  OR  Day Month [,Year] at HH:MM
-                const re = /((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}|\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\s*(?:,?\s*\d{4})?\s+at\s+(\d{1,2}:\d{2})/i;
-                const m = raw.match(re);
-                if (m) return m[1].trim() + ' at ' + m[2];
-                return raw.replace(/,?\s*\d{4}/, '').trim();
+                // Захватываем месяц+число, пропускаем год
+                const m = raw.match(/((?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}|(?:\d{1,2}\s+(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)))\s*(?:,?\s*\d{4})?\s+at\s+(\d{2}:\d{2})/);
+                return m ? (m[1].trim() + ' at ' + m[2]) : raw.replace(/,?\s*\d{4}/, '').trim();
             };
 
             const fillBidTable = (tbodyId, rows) => {
@@ -656,7 +653,7 @@
                 const tbody = document.getElementById(tbodyId);
                 tbody.innerHTML = '';
                 if (!rows || rows.length === 0) {
-                    tbody.innerHTML = `<tr><td colspan="3" class="td-date" style="text-align:center;padding:14px">РќРµС‚ РёСЃС‚РѕСЂРёРё РІР»Р°РґРµРЅРёСЏ</td></tr>`;
+                    tbody.innerHTML = `<tr><td colspan="3" class="td-date" style="text-align:center;padding:14px">Нет истории владения</td></tr>`;
                     return;
                 }
                 rows.forEach(item => {
@@ -676,13 +673,14 @@
             fillBidTable('bid-tbody',            data.bid_history);
             fillOwnershipTable('ownership-tbody', data.history);
 
+        } catch (e) { console.error(e); }
     }
 
     window.addEventListener('load', initApp);
 
-    function acceptOffer() { alert('вњ… Offer accepted!'); }
+    function acceptOffer() { alert('✅ Offer accepted!'); }
 
-    /* в”Ђв”Ђв”Ђ РџРѕРёСЃРє: РІРІРѕРґ СЂР°Р±РѕС‚Р°РµС‚, Enter РЅРёС‡РµРіРѕ РЅРµ РґРµР»Р°РµС‚ в”Ђв”Ђв”Ђ */
+    /* ─── Поиск: ввод работает, Enter ничего не делает ─── */
     document.getElementById('search-input').addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
@@ -739,7 +737,7 @@
 </div>
 
 <script>
-    /* в”Ђв”Ђв”Ђ Drawer + Burger animation в”Ђв”Ђв”Ђ */
+    /* ─── Drawer + Burger animation ─── */
     const hamburgerBtn = document.getElementById('hamburger-btn');
     const drawer       = document.getElementById('drawer');
     const overlay      = document.getElementById('drawer-overlay');
@@ -748,14 +746,14 @@
     function openDrawer() {
         drawer.classList.add('open');
         overlay.classList.add('open');
-        hamburgerBtn.classList.add('open');   // Р·Р°РїСѓСЃРєР°РµС‚ CSS-Р°РЅРёРјР°С†РёСЋ в†’ РєСЂРµСЃС‚
+        hamburgerBtn.classList.add('open');   // запускает CSS-анимацию → крест
         document.body.style.overflow = 'hidden';
     }
 
     function closeDrawer() {
         drawer.classList.remove('open');
         overlay.classList.remove('open');
-        hamburgerBtn.classList.remove('open'); // РѕР±СЂР°С‚РЅР°СЏ Р°РЅРёРјР°С†РёСЏ в†’ С‚СЂРё РїРѕР»РѕСЃРєРё
+        hamburgerBtn.classList.remove('open'); // обратная анимация → три полоски
         document.body.style.overflow = '';
     }
 
